@@ -1,7 +1,7 @@
 <html>
 
 <head>
-  <title>PHP Simple Form Processing</title>
+  <title>IAT352 lab 1</title>
 </head>
 
 <body>
