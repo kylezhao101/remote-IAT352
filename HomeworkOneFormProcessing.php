@@ -63,6 +63,13 @@
             echo '<p>Form incomplete</p>';
         } else {
             echo '<p>Your application is successfuly submitted. The following information is listed in the application</p>';
+            echo '<ul>';
+            echo '<li>Type of Program: ' . $_POST['type'] . '</li>';
+            echo '<li>Country: ' . $_POST['country'] . '</li>';
+            echo '<li>Term: ' . $_POST['term'] . '</li>';
+            echo '<li>Language of Instruction: ' . $_POST['language'] . '</li>';
+            echo '<li>Level of Study (at SFU): ' . $_POST['level'] . '</li>';
+            echo '</ul>';
         }
     }
     ?>
