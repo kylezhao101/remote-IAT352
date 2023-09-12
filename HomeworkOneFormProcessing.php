@@ -18,31 +18,31 @@
             <div class='formCol'>
                 <label>Type of Program</label>
                 <select name='type' id='type'>
-                    <option value='' disabled selected>Select your country of choice</option>
-                    <option value='exchange'>Exchange</option>
+                    <option value='' disabled selected>Select your program</option>
+                    <option value='Exchange'>Exchange</option>
                 </select>
 
                 <label>Country</label>
                 <select name="country" id="country">
                     <option value='' disabled selected>Select your country of choice</option>
-
                     <option value='Canada'>Canada</option>
+                    <option value='Netherlands'>Netherlands</option>
                 </select>
 
                 <label>Term</label>
                 <select name="term" id="term">
                     <option value='' disabled selected>Select your term</option>
-                    <option value="Fall">Fall</option>
-                    <option value="Spring">Spring</option>
-                    <option value="Summer">Summer</option>
+                    <option value="Fall 2023">Fall 2023</option>
+                    <option value="Spring 2024">Spring 2024</option>
+                    <option value="Summer 2024">Summer 2024</option>
+                    <option value="Fall 2024">Fall 2024</option>
                 </select>
             </div>
             <div class='formCol'>
                 <label>Language of Instruction</label>
                 <select name="language" id="language">
                     <option value='' disabled selected>Select your language of choice</option>
-
-                    <option value='english'>English</option>
+                    <option value='English'>English</option>
                 </select>
 
                 <label>Level of Study (at SFU)</label>
@@ -53,8 +53,8 @@
                     <option value="PDP">PDP</option>
                 </select>
             </div>
-            <div>
-                <input type="submit" value="apply" />
+
+            <input type="submit" value="apply" />
     </form>
     <?php
     if (isset($_POST['type']) && isset($_POST['term']) && isset($_POST['level'])) {
