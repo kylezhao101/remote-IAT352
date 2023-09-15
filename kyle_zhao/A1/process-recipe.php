@@ -77,6 +77,13 @@
             } else {
                 $errors[] = "Failed to open the CSV file for writing.";
             }
+        } else {
+            session_start();
+            $_SESSION["form_errors"] = $errors;
+            $_SESSION["form_values"] = $_POST;
+
+            header("Location: add-recipe.php");
+            exit();
         }
     }
 ?>

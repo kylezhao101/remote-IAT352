@@ -1,3 +1,13 @@
+<?php
+    //get session data
+    $formErrors = isset($_SESSION["form_errors"]) ? $_SESSION["form_errors"] : [];
+    $formValues = isset($_SESSION["form_values"]) ? $_SESSION["form_values"] : [];
+
+    //clear session data
+    unset($_SESSION["form_errors"]);
+    unset($_SESSION["form_values"]);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,6 +19,17 @@
 
 <body>
     <h1>Add a New Recipe</h1>
+
+    <?php
+    // display errors
+    if (!empty($formErrors)) {
+        echo '<div style="color: red;">';
+        foreach ($formErrors as $error) {
+            echo '<p>' . htmlspecialchars($error) . '</p>';
+        }
+        echo '</div>';
+    }
+    ?>
 
     <form method="post" action='process-recipe.php'>
         <label for='title'>Recipe Title</label>
