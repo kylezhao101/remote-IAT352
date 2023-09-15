@@ -37,6 +37,17 @@
         }
 
         fclose($csvFile);
+        // render all recipes
+        if ($recipes){
+            echo '<ul>';
+            $recipeCount = count($recipes);
+            for($i = 0; $i < $recipeCount; $i++){
+                echo $recipes[$i];
+            }
+            echo '</u>l';
+        } 
+    } else {
+        echo 'failed to read csv file';
     }
 ?>
 </body>
