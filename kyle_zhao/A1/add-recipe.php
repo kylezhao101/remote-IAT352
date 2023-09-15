@@ -10,7 +10,7 @@
 <body>
     <h1>Add a New Recipe</h1>
 
-    <form method="post" action>
+    <form method="post" action='process-recipe.php'>
         <label for='title'>Recipe Title</label>
         <input type='text' id='title' name='title'>
 
@@ -27,13 +27,14 @@
         <input type='radio' id='4' value='4' name='serving'>
         <label for='4'>4</label>
 
-        <label for=''>Prep time</label>
-        <input type='number' id='hr' name='hr' placeholder='hr'>
-        <input type='number' id='min' name='min' placeholder='min'>
+        <label for='prep_hr'>Prep time</label>
+        <input type='number' id='prep_hr' name='prep_hr' placeholder='hr'>
+        <input type='number' id='prep_min' name='prep_min' placeholder='min'>
 
-        <label for=''>Cook time</label>
-        <input type='number' id='hr' name='hr' placeholder='hr'>
-        <input type='number' id='min' name='min' placeholder='min'>
+        <label for='cook_hr'>Cook time</label>
+        <input type='number' id='cook_hr' name='cook_hr' placeholder='hr'>
+        <input type='number' id='cook_min' name='cook_min' placeholder='min'>
+
 
         <table>
             <tr>
@@ -45,9 +46,9 @@
             // Generate 10 rows for ingredients
             for ($i = 1; $i <= 10; $i++) {
                 echo '<tr>';
-                echo '<td><input type="text" name="quantity[]" placeholder="Quantity"></td>';
+                echo '<td><input type="text" name="iquantity' . $i . '" placeholder="Quantity"></td>';
                 echo '<td>';
-                echo '<select name="measurement[]">';
+                echo '<select name="imeasurement' . $i . '">';
                 echo '<option value="" disabled selected>(none)</option>';
                 echo '<option value="pound(s)">pound(s)</option>';
                 echo '<option value="gram(s)">gram(s)</option>';
@@ -59,7 +60,7 @@
                 echo '<option value="cup">cup</option>';
                 echo '</select>';
                 echo '</td>';
-                echo '<td><input type="text" name="ingredient[]" placeholder="Ingredient"></td>';
+                echo '<td><input type="text" name="iingredient' . $i . '" placeholder="Ingredient"></td>';
                 echo '</tr>';
             }
             ?>
