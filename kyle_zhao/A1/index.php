@@ -23,7 +23,8 @@
 
         while (($data = fgetcsv($csvFile))){
             $description = decodeCommas($data[2]);
-            $recipeLink = '<a href="recipe-details.php?id=' . $recipeId . '">View Recipe Details</a>';
+
+            $recipeLink = '<a href="recipe-details.php?id=' . $data[0] . '">View Recipe Details</a>';
 
             $recipe = '<li>';
             $recipe .= '<h2>' . $data[1]. '</h2>';
