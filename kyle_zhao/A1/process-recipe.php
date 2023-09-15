@@ -1,5 +1,10 @@
 <?php
 
+    // helper functions
+    function encodeCommas($text){
+        return str_replace(',', '#', $text);
+    };
+
     if($_SERVER["REQUEST_METHOD"] === "POST"){
         //form data
         $title = $_POST["title"];
@@ -26,6 +31,9 @@
         //prepare to write to csv
         if(empty($errors)) {
 
+            // process description
+            $description = encodeCommas($description);
+
             // Process ingredients
             for ($i = 1; $i <= 10; $i++) {
                 // Check if ingredient fields are set
@@ -45,7 +53,7 @@
             }
 
             $encodedIngredients = implode(',', $ingredients);
-            $encodedTags = str_replace(',', '#', $tags);
+            $tags = encodeCommas($tags);
 
             $lineCSV = [
                 uniqid(),
@@ -58,7 +66,7 @@
                 $cook_min,
                 $encodedIngredients,
                 $instructions,
-                $encodedTags
+                $tags
             ];
 
             $csvFile = fopen("recipes.csv", "a"); //create file if doesnt exist and open for writing
