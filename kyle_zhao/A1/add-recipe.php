@@ -18,9 +18,13 @@
 </head>
 
 <body>
+    <?php
+        include('./util/nav.php');
+    ?>
     <h1>Add a New Recipe</h1>
 
     <?php
+
     // display errors
     if (!empty($formErrors)) {
         echo '<div style="color: red;">';
