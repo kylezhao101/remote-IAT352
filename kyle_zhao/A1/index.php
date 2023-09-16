@@ -7,8 +7,8 @@
     };
 
     // Check if the CSV file exists
-    if (file_exists("recipes.csv")) {
-        $csvFile = fopen("recipes.csv", "r");
+    if (file_exists("./recipes/recipes.csv")) {
+        $csvFile = fopen("./recipes/recipes.csv", "r");
         
         // Check if the CSV file was opened successfully
         if ($csvFile) {
@@ -17,9 +17,9 @@
             while (($data = fgetcsv($csvFile))) {
                 $recipe = '<li>';
                 $recipe .= '<h2>' . $data[1]. '</h2>';
-                $recipe .= '<p> Servings: ' . $data[3]. '</p>';
                 $recipe .= '<p> Prep Time: ' . $data[4] . 'hrs ' . $data[5] . 'mins</p>';
                 $recipe .= '<p> Cook Time: ' . $data[6] . 'hrs ' . $data[7] . 'mins</p>';
+                $recipe .= '<p> Servings: ' . $data[3]. '</p>';
                 $recipe .= '<a href="recipe-details.php?id=' . $data[0] . '">View Recipe Details</a>';
                 $recipe .= '</li>';
                 
