@@ -106,7 +106,7 @@
             $encodedIngredients = implode('+++', $ingredients);
             $encodedIngredients = trim($encodedIngredients,'"');
             $tags = encodeCommas($tags);
-            $instructions = trim($instructions,'"');
+            $instructions = encodeCommas($instructions);
 
             $lineCSV = [
                 uniqid(),
@@ -132,7 +132,7 @@
                 fclose($csvFile);
                 echo '<h1>Recipe Stored Successfully</h1>';
                 echo '<p>Your recipe has been successfully stored.</p>';
-                echo '<p>Click <a href="recipe-details.php?id=' . $lineCSV[0] . '">here</a> to view the entered recipe.</p>';// Redirect to a success page with a link to view the entered recipe
+                echo '<p>Click <a href="details.php?id=' . $lineCSV[0] . '">here</a> to view the entered recipe.</p>';// Redirect to a success page with a link to view the entered recipe
                 exit();
 
             } else {

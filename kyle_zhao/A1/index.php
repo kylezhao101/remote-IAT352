@@ -20,7 +20,7 @@
                 $recipe .= '<p> Prep Time: ' . $data[4] . 'hrs ' . $data[5] . 'mins</p>';
                 $recipe .= '<p> Cook Time: ' . $data[6] . 'hrs ' . $data[7] . 'mins</p>';
                 $recipe .= '<p> Servings: ' . $data[3]. '</p>';
-                $recipe .= '<a href="recipe-details.php?id=' . $data[0] . '">View Recipe Details</a>';
+                $recipe .= '<a href="details.php?id=' . $data[0] . '">View Recipe Details</a>';
                 $recipe .= '</li>';
                 
                 array_push($recipes, $recipe);
