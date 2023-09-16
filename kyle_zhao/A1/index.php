@@ -1,11 +1,11 @@
 <?php
-    include('./util/nav.php');
-
     // decoding helper function
     function decodeCommas($text){
         return str_replace('#', ',', $text);
     };
 
+    include('./util/nav.php');
+    
     // Check if the CSV file exists
     if (file_exists("./recipes/recipes.csv")) {
         $csvFile = fopen("./recipes/recipes.csv", "r");

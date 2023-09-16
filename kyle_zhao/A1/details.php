@@ -7,6 +7,9 @@
         function decodeCommas($text){
             return str_replace('#', ',', $text);
         };
+
+        include('./util/nav.php');
+
         if (isset($_GET['id'])) {
             $recipeId = $_GET['id'];
 
