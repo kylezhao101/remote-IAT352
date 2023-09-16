@@ -1,5 +1,6 @@
 <?php
     //get session data
+    session_start();
     $formErrors = isset($_SESSION["form_errors"]) ? $_SESSION["form_errors"] : [];
     $formValues = isset($_SESSION["form_values"]) ? $_SESSION["form_values"] : [];
 
@@ -80,7 +81,7 @@
                 echo '<option value="ounce(s)">ounce(s)</option>';
                 echo '<option value="pcs">pcs</option>';
                 echo '<option value="ml">ml</option>';
-                echo '<option value="tbl spoon">tbl spoon</option>';
+                echo '<option value="tblspoon">tbl spoon</option>';
                 echo '<option value="teaspoon">teaspoon</option>';
                 echo '<option value="cup">cup</option>';
                 echo '</select>';
