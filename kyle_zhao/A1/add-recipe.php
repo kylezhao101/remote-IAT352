@@ -15,6 +15,7 @@
         <meta charset="UTF-8">
         <title>Add a New Recipe</title>
         <!-- CSS -->
+        <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
         <?php
@@ -34,12 +35,13 @@
         ?>
 
         <form method="post" action='process-recipe.php'>
+            <div class="form-text">
             <label for='title'>Recipe Title</label>
-            <input type='text' id='title' name='title'>
+            <input type='text' id='title' name='title' placeholder='Title'>
 
             <label for='description'>Description</label>
-            <textarea id='description' name='description' rows='4'></textarea>
-
+            <textarea id='description' name='Description' rows='8' placeholder='description'></textarea>
+            </div>
             <p>This recipe serves</p>
             <input type='radio' id='1' value='1' name='serving'>
             <label for='1'>1</label>
@@ -50,13 +52,17 @@
             <input type='radio' id='4' value='4' name='serving'>
             <label for='4'>4</label>
 
+            <div class="form-time">
             <label for='prep_hr'>Prep time</label>
             <input type='number' id='prep_hr' name='prep_hr' placeholder='hr'>
             <input type='number' id='prep_min' name='prep_min' placeholder='min'>
-
+            </div>
+            
+            <div class="form-time">
             <label for='cook_hr'>Cook time</label>
             <input type='number' id='cook_hr' name='cook_hr' placeholder='hr'>
             <input type='number' id='cook_min' name='cook_min' placeholder='min'>
+            </div>
 
             <table>
                 <tr>
@@ -87,12 +93,13 @@
                 }
                 ?>
             </table>
+            <div class="form-text">
+                <label for="instructions">Instructions (each step on a separate line):</label>
+                <textarea id="instructions" name="instructions" rows="15" placeholder="Instructions"></textarea>
 
-            <label for="instructions">Instructions (each step on a separate line):</label>
-            <textarea id="instructions" name="instructions" rows="4"></textarea>
-
-            <label for="tags">Tags (separate by commas):</label>
-            <input type="text" id="tags" name="tags">
+                <label for="tags">Tags (separate by commas):</label>
+                <input type="text" id="tags" name="tags">
+            </div>
 
             <input type='submit' value='Add Recipe'>
         </form>

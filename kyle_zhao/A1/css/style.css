@@ -3,7 +3,6 @@ ul.recipe-list{
     gap:1rem;
     flex-flow: wrap;
 }
-
 li.recipe-card{
     list-style-type: none;
     border:1px solid grey;
@@ -11,7 +10,6 @@ li.recipe-card{
     width:20rem;
     border-radius: 21px;
 }
-
 a{
     display: flex;
     align-items: center;
@@ -24,15 +22,12 @@ a{
     color:black;
     background-color: #ff7f5000;
     transition: 0.5s;
-
     font-size: 18px;
 }
-
 a:hover{
     transform:translateY(2px);
     background-color:coral;
 }
-
 .recipe-detail-card{
     margin-left:30rem;
     margin-right:30rem;
@@ -40,7 +35,6 @@ a:hover{
     border:2px solid black;
     padding:1rem;
 }
-
 .recipe-detail-card h1{
     display:flex;   
     align-items: center;
@@ -53,4 +47,37 @@ a:hover{
 }
 .recipe-detail-card h3{
     border-bottom: 1px solid rgb(235, 235, 235);
+}
+form{
+    margin-left:30rem;
+    margin-right:30rem;
+    border-radius: 20px;
+    border:2px solid black;
+    padding:1rem;
+}
+.form-text{
+    display: flex;
+    flex-direction: column;
+}
+.form-time{
+    display: flex;
+    gap:2rem;
+}
+form input[type=submit]{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width:fit-content;
+    padding:0.5rem;
+    text-decoration: none;
+    border-radius: 20px;
+    border:2px solid black;
+    color:black;
+    background-color: #ff7f5000;
+    transition: 0.5s;
+    font-size: 18px;
+}
+form input[type=submit]:hover{
+    transform:translateY(2px);
+    background-color:coral;
 }
