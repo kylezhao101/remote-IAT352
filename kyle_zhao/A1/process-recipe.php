@@ -106,7 +106,7 @@
                                     $errors[] = "Quantity for ingredient $i must be a number.";
                                 } else{
                                     // Encode the ingredient and store it
-                                    $ingredients[] = $quantity . '#' . $unit . '#' . $ingredient;
+                                    $ingredients[] = $quantity . ' ' . $unit . ' ' . $ingredient;
                                 }
                             }
                         }

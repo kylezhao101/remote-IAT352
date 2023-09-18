@@ -1,0 +1,34 @@
+ul.recipe-list{
+    display: flex;
+    gap:1rem;
+    flex-flow: wrap;
+}
+
+li.recipe-card{
+    list-style-type: none;
+    border:1px solid grey;
+    padding:1rem;
+    width:20rem;
+    border-radius: 21px;
+}
+
+a{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width:fit-content;
+    padding:0.5rem;
+    text-decoration: none;
+    border-radius: 20px;
+    border:2px solid black;
+    color:black;
+    background-color: #ff7f5000;
+    transition: 0.5s;
+
+    font-size: 18px;
+}
+
+a:hover{
+    transform:translateY(2px);
+    background-color:coral;
+}
