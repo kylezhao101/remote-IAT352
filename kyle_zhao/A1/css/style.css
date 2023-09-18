@@ -32,3 +32,25 @@ a:hover{
     transform:translateY(2px);
     background-color:coral;
 }
+
+.recipe-detail-card{
+    margin-left:30rem;
+    margin-right:30rem;
+    border-radius: 20px;
+    border:2px solid black;
+    padding:1rem;
+}
+
+.recipe-detail-card h1{
+    display:flex;   
+    align-items: center;
+    justify-content: center;
+}
+.recipe-details-info{
+    background-color: rgb(235, 235, 235);
+    display:flex;
+    gap:2rem;
+}
+.recipe-detail-card h3{
+    border-bottom: 1px solid rgb(235, 235, 235);
+}

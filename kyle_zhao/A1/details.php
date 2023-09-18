@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <title>Recipe Details</title>
         <!-- CSS -->
+        <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
         <?php
@@ -31,25 +32,34 @@
 
                             $encodedIngredients = $data[8];
                             $ingredients = explode('+++', $encodedIngredients);
-                            $instructions = str_replace('@@@', "\n", $data[9]);
+                            $instructions = str_replace('@@@', "\n\n", $data[9]);
                             $instructions = decodeCommas($instructions);
                             $tags = str_replace('#', ',', $data[10]);
                             
                             // Display the recipe details
+                            echo '<div class="recipe-detail-card">';
                             echo "<h1>$title</h1>";
-                            echo "<p><strong>Description:</strong> $description</p>";
-                            echo "<p><strong>Serving:</strong> $serving</p>";
+                            echo '<div class="recipe-details-info">';
                             echo "<p><strong>Prep Time:</strong> $prep_hr hr $prep_min min</p>";
                             echo "<p><strong>Cook Time:</strong> $cook_hr hr $cook_min min</p>";
-                            echo "<p><strong>Ingredients:</strong></p>";
+                            echo "<p><strong>Serving(s):</strong> $serving</p>";
+                            echo '</div>';
+                            echo "<p>$description</p>";
+                            echo "<h3><strong>Ingredients:</strong></h3>";
                             echo "<ul>";
                             foreach ($ingredients as $ingredient) {
                                 echo "<li>$ingredient</li>";
                             }
                             echo "</ul>";
-                            echo "<p><strong>Instructions:</strong></p>";
-                            echo "<pre>$instructions</pre>";
+                            echo "<h3><strong>Instructions:</strong></h3>";
+                            echo "<ol>";
+                            $instructionLines = explode("\n\n", $instructions);
+                            foreach ($instructionLines as $line) {
+                                echo "<li>$line</li>";
+                            }
+                            echo "</ol>";
                             echo "<p><strong>Tags:</strong> $tags</p>";
+                            echo "</div>";
 
                             break;
 
