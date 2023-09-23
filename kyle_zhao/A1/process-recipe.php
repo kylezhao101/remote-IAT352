@@ -27,8 +27,6 @@
                 $prep_min = $_POST["prep_min"];
                 $cook_hr = $_POST["cook_hr"];
                 $cook_min = $_POST["cook_min"];
-
-                //$ingredients = $_POST["ingredients"];
                 $instructions = $_POST["instructions"];
                 $instructions = str_replace(PHP_EOL, '@@@', $instructions);
 
@@ -39,23 +37,18 @@
                 if (empty($title)) {
                     $errors[] = "Recipe Title is required.";
                 }
-
                 if (empty($description)) {
                     $errors[] = "Description is required.";
                 }
-
                 if (empty($serving)) {
                     $errors[] = "Serving information is required.";
                 }
-
-                if (empty($prep_hr) || empty($prep_min)) {
-                    $errors[] = "Both Prep Hours and Prep Minutes are required.";
+                if (empty($prep_hr) && empty($prep_min)) {
+                    $errors[] = "Prep time incomplete";
                 }
-
-                if (empty($cook_hr) || empty($cook_min)) {
-                    $errors[] = "Both Cook Hours and Cook Minutes are required.";
+                if (empty($cook_hr) && empty($cook_min)) {
+                    $errors[] = "Cook time incomplete";
                 }
-
                 // Check if at least one ingredient is entered
                 $ingredientEntered = false;
                 for ($i = 1; $i <= 10; $i++) {
@@ -71,23 +64,24 @@
                         // Check if any of the ingredient fields are not empty
                         if (!empty($quantity) || !empty($unit) || !empty($ingredient)) {
                             $ingredientEntered = true;
+                            
+                            if (!is_numeric($quantity)) {
+                                $errors[] = "Quantity for ingredient $i must be a number.";
+                            }
+
                             break; // Stop checking once at least one ingredient is entered
                         }
                     }
                 }
-
                 if (!$ingredientEntered) {
                     $errors[] = "At least one ingredient is required.";
                 }
-
                 if (empty($instructions)) {
                     $errors[] = "Instructions are required.";
                 }
-
                 if (empty($tags)) {
                     $errors[] = "Tags are required.";
                 }
-
                 //prepare to write to csv
                 if(empty($errors)) {
                     // process description
