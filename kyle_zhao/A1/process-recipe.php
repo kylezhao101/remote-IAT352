@@ -61,10 +61,14 @@
                         $unit = $_POST["imeasurement$i"];
                         $ingredient = $_POST["iingredient$i"];
 
-                        // Check if any of the ingredient fields are not empty
+                        // Check if any of the ingredient fields are empty
+                        if (empty($quantity) || empty($unit) || empty($ingredient)) {
+                            $errors[] = "Ingredient $i is incomplete";
+                        } 
+
                         if (!empty($quantity) || !empty($unit) || !empty($ingredient)) {
                             $ingredientEntered = true;
-                            
+
                             if (!is_numeric($quantity)) {
                                 $errors[] = "Quantity for ingredient $i must be a number.";
                             }
@@ -95,17 +99,7 @@
                             $unit = $_POST["imeasurement$i"];
                             $ingredient = $_POST["iingredient$i"];
 
-                            // Check if any of the ingredient fields are empty
-                            if (empty($quantity) || empty($unit) || empty($ingredient)) {
-                                $errors[] = "Ingredient $i is incomplete";
-                            } else {
-                                if (!is_numeric($quantity)) {
-                                    $errors[] = "Quantity for ingredient $i must be a number.";
-                                } else{
-                                    // Encode the ingredient and store it
-                                    $ingredients[] = $quantity . ' ' . $unit . ' ' . $ingredient;
-                                }
-                            }
+                            $ingredients[] = $quantity . ' ' . $unit . ' ' . $ingredient;
                         }
                     }
 
@@ -130,7 +124,7 @@
 
                     $csvFile = fopen("./recipes/recipes.csv", "a"); //create file if doesnt exist and open for writing
 
-                    if ($csvFile) {
+                    if ($csvFile && empty($errors)) {
                         // Write the recipe data to the CSV file
                         fputcsv($csvFile, $lineCSV);
 

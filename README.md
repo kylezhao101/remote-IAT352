@@ -1,3 +1,3 @@
 # IAT352
 ## TODO:
-<li> Make add-recipe better
+<li> Make process-recipe better
