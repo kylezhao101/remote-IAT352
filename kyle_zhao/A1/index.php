@@ -4,6 +4,9 @@
         <meta charset="UTF-8">
         <title>All Recipes</title>
         <!-- CSS -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
@@ -24,13 +27,13 @@
                     $recipes = [];
 
                     while (($data = fgetcsv($csvFile))) {
-                        $recipe = '<li class="recipe-card">';
+                        $recipe = '<div class="recipe-card">';
                         $recipe .= '<h2>' . $data[1]. '</h2>';
                         $recipe .= '<p> Prep Time: ' . $data[4] . 'hrs ' . $data[5] . 'mins</p>';
                         $recipe .= '<p> Cook Time: ' . $data[6] . 'hrs ' . $data[7] . 'mins</p>';
                         $recipe .= '<p> Servings: ' . $data[3]. '</p>';
                         $recipe .= '<a href="details.php?id=' . $data[0] . '">View Recipe Details</a>';
-                        $recipe .= '</li>';
+                        $recipe .= '</div>';
                         
                         array_push($recipes, $recipe);
                     }
@@ -43,11 +46,11 @@
                     } else {
                         // Render all recipes
                         echo '<h1>Recipes</h1>';
-                        echo '<ul class="recipe-list">';
+                        echo '<div class="recipe-list">';
                         foreach ($recipes as $recipe) {
                             echo $recipe;
                         }
-                        echo '</ul>';
+                        echo '</div>';
                     }
                 } else {
                     echo '<p>Failed to open CSV file</p>';
@@ -55,6 +58,8 @@
             } else {
                 echo '<p>CSV file does not exist</p>';
             }
+
+            include('./util/footer.php');
         ?>
     </body>
 </html>

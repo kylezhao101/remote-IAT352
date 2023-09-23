@@ -4,6 +4,9 @@
         <meta charset="UTF-8">
         <title>Recipe Details</title>
         <!-- CSS -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
@@ -45,13 +48,13 @@
                             echo "<p><strong>Serving(s):</strong> $serving</p>";
                             echo '</div>';
                             echo "<p>$description</p>";
-                            echo "<h3><strong>Ingredients:</strong></h3>";
+                            echo "<h2><strong>Ingredients:</strong></h2>";
                             echo "<ul>";
                             foreach ($ingredients as $ingredient) {
                                 echo "<li>$ingredient</li>";
                             }
                             echo "</ul>";
-                            echo "<h3><strong>Instructions:</strong></h3>";
+                            echo "<h2><strong>Instructions:</strong></h2>";
                             echo "<ol>";
                             $instructionLines = explode("\n\n", $instructions);
                             foreach ($instructionLines as $line) {
@@ -72,7 +75,7 @@
             } else {
                 echo "No Recipe ID";
             }
-
+            include('./util/footer.php');
         ?>
     </body>
 </html

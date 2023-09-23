@@ -4,6 +4,10 @@
         <meta charset="UTF-8">
         <title>Processing Recipe</title>
         <!-- CSS -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
         <?php
@@ -86,7 +90,6 @@
 
                 //prepare to write to csv
                 if(empty($errors)) {
-                    echo 'no errors';
                     // process description
                     $description = encodeCommas($description);
 
@@ -140,8 +143,8 @@
                         // Close the CSV file
                         fclose($csvFile);
                         echo '<h1>Recipe Stored Successfully</h1>';
-                        echo '<p>Your recipe has been successfully stored.</p>';
-                        echo '<p>Click <a href="details.php?id=' . $lineCSV[0] . '">here</a> to view the entered recipe.</p>';// Redirect to a success page with a link to view the entered recipe
+                        echo '<p>Recipe has been successfully stored.</p>';
+                        echo '<a href="details.php?id=' . $lineCSV[0] . '">View new recipe </a>';
                         exit();
 
                     } else {

@@ -15,6 +15,9 @@
         <meta charset="UTF-8">
         <title>Add a New Recipe</title>
         <!-- CSS -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
@@ -36,11 +39,11 @@
 
         <form method="post" action='process-recipe.php'>
             <div class="form-text">
-            <label for='title'>Recipe Title</label>
-            <input type='text' id='title' name='title' placeholder='Title'>
+                <label for='title'>Recipe Title</label>
+                <input type='text' id='title' name='title' placeholder='Title'>
 
-            <label for='description'>Description</label>
-            <textarea id='description' name='Description' rows='8' placeholder='description'></textarea>
+                <label for='description'>Description</label>
+                <textarea id='description' name='description' rows='8' placeholder='description'></textarea>
             </div>
             <p>This recipe serves</p>
             <input type='radio' id='1' value='1' name='serving'>
@@ -53,15 +56,15 @@
             <label for='4'>4</label>
 
             <div class="form-time">
-            <label for='prep_hr'>Prep time</label>
-            <input type='number' id='prep_hr' name='prep_hr' placeholder='hr'>
-            <input type='number' id='prep_min' name='prep_min' placeholder='min'>
+                <label for='prep_hr'>Prep time</label>
+                <input type='number' id='prep_hr' name='prep_hr' placeholder='hr'>
+                <input type='number' id='prep_min' name='prep_min' placeholder='min'>
             </div>
             
             <div class="form-time">
-            <label for='cook_hr'>Cook time</label>
-            <input type='number' id='cook_hr' name='cook_hr' placeholder='hr'>
-            <input type='number' id='cook_min' name='cook_min' placeholder='min'>
+                <label for='cook_hr'>Cook time</label>
+                <input type='number' id='cook_hr' name='cook_hr' placeholder='hr'>
+                <input type='number' id='cook_min' name='cook_min' placeholder='min'>
             </div>
 
             <table>
@@ -103,5 +106,9 @@
 
             <input type='submit' value='Add Recipe'>
         </form>
+
+        <?php
+            include('./util/footer.php');
+        ?>
     </body>
 </html>
