@@ -40,19 +40,20 @@
         <form method="post" action='process-recipe.php'>
             <div class="form-text">
                 <label for='title'>Recipe Title</label>
-                <input type='text' id='title' name='title' placeholder='Title'>
+                <input type='text' id='title' name='title' placeholder='Title' value="<?php echo isset($formValues['title']) ? htmlspecialchars($formValues['title']) : ''; ?>">
 
                 <label for='description'>Description</label>
-                <textarea id='description' name='description' rows='8' placeholder='description'></textarea>
+                <textarea id='description' name='description' rows='8' placeholder='description'><?php echo isset($formValues['description']) ? htmlspecialchars($formValues['description']) : ''; ?></textarea>
             </div>
+            
             <p>This recipe serves</p>
-            <input type='radio' id='1' value='1' name='serving'>
+            <input type='radio' id='1' value='1' name='serving' <?php if (isset($formValues['serving']) && $formValues['serving'] === '1') echo 'checked'; ?>>
             <label for='1'>1</label>
-            <input type='radio' id='2' value='2' name='serving'>
+            <input type='radio' id='2' value='2' name='serving' <?php if (isset($formValues['serving']) && $formValues['serving'] === '2') echo 'checked'; ?>>
             <label for='2'>2</label>
-            <input type='radio' id='3' value='3' name='serving'>
+            <input type='radio' id='3' value='3' name='serving' <?php if (isset($formValues['serving']) && $formValues['serving'] === '3') echo 'checked'; ?>>
             <label for='3'>3</label>
-            <input type='radio' id='4' value='4' name='serving'>
+            <input type='radio' id='4' value='4' name='serving' <?php if (isset($formValues['serving']) && $formValues['serving'] === '4') echo 'checked'; ?>>
             <label for='4'>4</label>
 
             <div class="form-time">

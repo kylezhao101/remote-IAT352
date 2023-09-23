@@ -146,7 +146,6 @@
                         echo '<p>Recipe has been successfully stored.</p>';
                         echo '<a href="details.php?id=' . $lineCSV[0] . '">View new recipe </a>';
                         exit();
-
                     } else {
                         $errors[] = "Failed to open the CSV file for writing.";
                     }
