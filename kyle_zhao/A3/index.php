@@ -27,7 +27,7 @@
             $whereQuery[] = "orders.orderNumber=" . $orderNumber;
         }
         if(!empty($startDate) && !empty($endDate)){
-            $whereQuery[] = "orderDate BETWEEN '$startDate' AND '$endDate'";
+            $whereQuery[] = "orders.orderDate >= '$startDate' AND orders.orderDate <= '$endDate'";
         }
         $whereQuery = implode(" AND ", $whereQuery);
 
@@ -100,7 +100,7 @@
                     }
                     echo "</tr>";
                 } while ($row = $result->fetch_assoc());
-                
+
                 echo "</table>";   
             }
         ?>
