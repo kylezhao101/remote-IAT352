@@ -31,17 +31,7 @@
         <title>All Models</title>
     </head>
     <body>
-        <?php
-        //navigation links
-        //TODO
-        //all models, watchlist, login/logout
-
-        if ($logged_in) {
-            echo "<p><a href='watchlist.php'>Watchlist</a></p>";
-        } else {
-            echo "<p><a href='login.php'>Login</a></p>";
-        }
-        ?>
+        <?php include 'navbar.php'; ?>
         <h1>All Models</h1>
 
         <?php 
