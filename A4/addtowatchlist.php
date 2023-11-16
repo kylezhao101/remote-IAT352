@@ -43,6 +43,8 @@ if (isset($_SESSION['username'])) {
             // Execute sQL Statement
             if ($stmt->execute()) {
                 echo "Model added to watchlist successfully.";
+                header("Location: showwatchlist.php");
+                exit();
             } else {
                 echo "Error: " . $stmt->error;
             }

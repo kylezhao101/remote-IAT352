@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 17, 2023 at 12:32 AM
+-- Generation Time: Nov 17, 2023 at 12:43 AM
 -- Server version: 8.0.34
 -- PHP Version: 8.2.4
 
@@ -4094,16 +4094,18 @@ INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `encrypted_passwo
 --
 
 CREATE TABLE `watchlist` (
-  `user_id` int NOT NULL,
-  `productCode` varchar(15) NOT NULL
+  `id` int NOT NULL,
+  `user_id` int DEFAULT NULL,
+  `productCode` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `watchlist`
 --
 
-INSERT INTO `watchlist` (`user_id`, `productCode`) VALUES
-(2, 'S10_2016');
+INSERT INTO `watchlist` (`id`, `user_id`, `productCode`) VALUES
+(2, 2, 'S10_1678'),
+(3, 2, 'S10_1949');
 
 --
 -- Indexes for dumped tables
@@ -4174,8 +4176,9 @@ ALTER TABLE `users`
 -- Indexes for table `watchlist`
 --
 ALTER TABLE `watchlist`
-  ADD PRIMARY KEY (`user_id`),
-  ADD KEY `watchlist_ibfk_2` (`productCode`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `productCode` (`productCode`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -4186,6 +4189,12 @@ ALTER TABLE `watchlist`
 --
 ALTER TABLE `users`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `watchlist`
+--
+ALTER TABLE `watchlist`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
@@ -4234,7 +4243,7 @@ ALTER TABLE `products`
 --
 ALTER TABLE `watchlist`
   ADD CONSTRAINT `watchlist_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `watchlist_ibfk_2` FOREIGN KEY (`productCode`) REFERENCES `products` (`productCode`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `watchlist_ibfk_2` FOREIGN KEY (`productCode`) REFERENCES `products` (`productCode`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
