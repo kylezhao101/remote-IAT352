@@ -38,9 +38,6 @@
             if($result->num_rows > 0) {
                 while($row = $result->fetch_assoc()) {
                     echo "<p><a href='modeldetails.php?model_id=" . $row["productCode"] . "'>" . $row["productName"] . "</a></p>";
-
-                    //todo:
-                    //show add to watchlist link if logged in
                 }
             } else {
                 echo "No models";

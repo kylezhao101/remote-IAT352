@@ -14,34 +14,45 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+// If logged in
 if (isset($_SESSION['username'])) {
-    $user_id = $_SESSION['username'];
-    $model_id = $_POST['model_id']; 
+    $username = $_SESSION['username'];
 
-    // Prepare SQL statement
-    $stmt = $conn->prepare("INSERT INTO watchlist (user_id, model_id) VALUES (?, ?)");
-    $stmt->bind_param("ii", $user_id, $model_id);
+    // Fetch user ID
+    $userQuery = "SELECT id FROM users WHERE email = '$username'";
+    $userResult = $conn->query($userQuery);
 
-    // Execute the statement
-    if ($stmt->execute()) {
-        echo "Model added to watchlist successfully.";
+    if ($userResult->num_rows > 0) {
+        $userRow = $userResult->fetch_assoc();
+        $user_id = $userRow['id'];
 
-        // Display the watchlist
-        $result = $conn->query("SELECT * FROM watchlist WHERE user_id = $user_id");
+        $model_id = $_GET['model_id'];
+        echo "User ID: $user_id, Model ID: $model_id";
 
-        if ($result->num_rows > 0) {
-            while($row = $result->fetch_assoc()) {
-                echo "model_id: " . $row["model_id"]. "<br>";
-            }
+        // Check if the model is already in the watchlist
+        $checkQuery = "SELECT * FROM watchlist WHERE user_id = '$user_id' AND model_id = '$model_id'";
+        $checkResult = $conn->query($checkQuery);
+
+        if ($checkResult->num_rows > 0) {
+            echo "Model is already in the watchlist.";
         } else {
-            echo "0 results";
+            // SQL statement
+            $stmt = $conn->prepare("INSERT INTO watchlist (user_id, model_id) VALUES (?, ?)");
+            $stmt->bind_param("ii", $user_id, $model_id);
+
+            // Execute sQL Statement
+            if ($stmt->execute()) {
+                echo "Model added to watchlist successfully.";
+            } else {
+                echo "Error: " . $stmt->error;
+            }
+            $stmt->close();
         }
     } else {
-        echo "Error: " . $stmt->error;
+        echo "User not found.";
     }
-    $stmt->close();
 } else {
-    // Store callback url into session
+    // Store callback url into session if not logged in
     $_SESSION['callback_url'] = 'addtowatchlist.php';
     // Redirect to login page
     header("Location: login.php");
