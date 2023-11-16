@@ -30,15 +30,15 @@ if (isset($_SESSION['username'])) {
         echo "User ID: $user_id, Model ID: $model_id";
 
         // Check if the model is already in the watchlist
-        $checkQuery = "SELECT * FROM watchlist WHERE user_id = '$user_id' AND model_id = '$model_id'";
+        $checkQuery = "SELECT * FROM watchlist WHERE user_id = '$user_id' AND productCode = '$model_id'";
         $checkResult = $conn->query($checkQuery);
-
+        
         if ($checkResult->num_rows > 0) {
             echo "Model is already in the watchlist.";
         } else {
             // SQL statement
-            $stmt = $conn->prepare("INSERT INTO watchlist (user_id, model_id) VALUES (?, ?)");
-            $stmt->bind_param("ii", $user_id, $model_id);
+            $stmt = $conn->prepare("INSERT INTO watchlist (user_id, productCode) VALUES (?, ?)");
+            $stmt->bind_param("is", $user_id, $model_id);
 
             // Execute sQL Statement
             if ($stmt->execute()) {

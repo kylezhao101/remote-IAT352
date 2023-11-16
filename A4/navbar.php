@@ -1,7 +1,7 @@
 <nav>
     <ul>
         <li><a href="showmodels.php">All Models</a></li>
-        <li><a href="addtowatchlist.php">Watchlist</a></li>
+        <li><a href="showwatchlist.php">Watchlist</a></li>
         <?php
         if (isset($_SESSION['username'])) {
             // User is logged in, show logout link
