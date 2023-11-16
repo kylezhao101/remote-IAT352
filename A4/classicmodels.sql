@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 15, 2023 at 05:07 AM
--- Server version: 10.4.28-MariaDB
+-- Generation Time: Nov 17, 2023 at 12:32 AM
+-- Server version: 8.0.34
 -- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `customers` (
-  `customerNumber` int(11) NOT NULL,
+  `customerNumber` int NOT NULL,
   `customerName` varchar(50) NOT NULL,
   `contactLastName` varchar(50) NOT NULL,
   `contactFirstName` varchar(50) NOT NULL,
@@ -39,9 +39,9 @@ CREATE TABLE `customers` (
   `state` varchar(50) DEFAULT NULL,
   `postalCode` varchar(15) DEFAULT NULL,
   `country` varchar(50) NOT NULL,
-  `salesRepEmployeeNumber` int(11) DEFAULT NULL,
+  `salesRepEmployeeNumber` int DEFAULT NULL,
   `creditLimit` double DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `customers`
@@ -178,15 +178,15 @@ INSERT INTO `customers` (`customerNumber`, `customerName`, `contactLastName`, `c
 --
 
 CREATE TABLE `employees` (
-  `employeeNumber` int(11) NOT NULL,
+  `employeeNumber` int NOT NULL,
   `lastName` varchar(50) NOT NULL,
   `firstName` varchar(50) NOT NULL,
   `extension` varchar(10) NOT NULL,
   `email` varchar(100) NOT NULL,
   `officeCode` varchar(10) NOT NULL,
-  `reportsTo` int(11) DEFAULT NULL,
+  `reportsTo` int DEFAULT NULL,
   `jobTitle` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `employees`
@@ -233,7 +233,7 @@ CREATE TABLE `offices` (
   `country` varchar(50) NOT NULL,
   `postalCode` varchar(15) NOT NULL,
   `territory` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `offices`
@@ -255,12 +255,12 @@ INSERT INTO `offices` (`officeCode`, `city`, `phone`, `addressLine1`, `addressLi
 --
 
 CREATE TABLE `orderdetails` (
-  `orderNumber` int(11) NOT NULL,
+  `orderNumber` int NOT NULL,
   `productCode` varchar(15) NOT NULL,
-  `quantityOrdered` int(11) NOT NULL,
+  `quantityOrdered` int NOT NULL,
   `priceEach` double NOT NULL,
-  `orderLineNumber` smallint(6) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `orderLineNumber` smallint NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `orderdetails`
@@ -3273,14 +3273,14 @@ INSERT INTO `orderdetails` (`orderNumber`, `productCode`, `quantityOrdered`, `pr
 --
 
 CREATE TABLE `orders` (
-  `orderNumber` int(11) NOT NULL,
+  `orderNumber` int NOT NULL,
   `orderDate` date NOT NULL,
   `requiredDate` date NOT NULL,
   `shippedDate` date DEFAULT NULL,
   `status` varchar(15) NOT NULL,
-  `comments` text DEFAULT NULL,
-  `customerNumber` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `comments` text,
+  `customerNumber` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `orders`
@@ -3621,11 +3621,11 @@ INSERT INTO `orders` (`orderNumber`, `orderDate`, `requiredDate`, `shippedDate`,
 --
 
 CREATE TABLE `payments` (
-  `customerNumber` int(11) NOT NULL,
+  `customerNumber` int NOT NULL,
   `checkNumber` varchar(50) NOT NULL,
   `paymentDate` date NOT NULL,
   `amount` double NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `payments`
@@ -3915,9 +3915,9 @@ INSERT INTO `payments` (`customerNumber`, `checkNumber`, `paymentDate`, `amount`
 CREATE TABLE `productlines` (
   `productLine` varchar(50) NOT NULL,
   `textDescription` varchar(4000) DEFAULT NULL,
-  `htmlDescription` mediumtext DEFAULT NULL,
-  `image` mediumblob DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `htmlDescription` mediumtext,
+  `image` mediumblob
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `productlines`
@@ -3945,10 +3945,10 @@ CREATE TABLE `products` (
   `productScale` varchar(10) NOT NULL,
   `productVendor` varchar(50) NOT NULL,
   `productDescription` text NOT NULL,
-  `quantityInStock` smallint(6) NOT NULL,
+  `quantityInStock` smallint NOT NULL,
   `buyPrice` double NOT NULL,
   `MSRP` double NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `products`
@@ -4073,12 +4073,19 @@ INSERT INTO `products` (`productCode`, `productName`, `productLine`, `productSca
 --
 
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `first_name` varchar(50) DEFAULT NULL,
   `last_name` varchar(50) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
   `encrypted_password` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `encrypted_password`) VALUES
+(2, 'Kyle', 'Zhao', 'kylezhao101@gmail.com', '$2y$10$Uj8VoXZVQ.SBVr./VDxWY.N.mzzFrOQqCUkuMyN5lJRNFI40LiH6e');
 
 -- --------------------------------------------------------
 
@@ -4087,9 +4094,16 @@ CREATE TABLE `users` (
 --
 
 CREATE TABLE `watchlist` (
-  `user_id` int(11) NOT NULL,
-  `model_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `user_id` int NOT NULL,
+  `productCode` varchar(15) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `watchlist`
+--
+
+INSERT INTO `watchlist` (`user_id`, `productCode`) VALUES
+(2, 'S10_2016');
 
 --
 -- Indexes for dumped tables
@@ -4160,7 +4174,8 @@ ALTER TABLE `users`
 -- Indexes for table `watchlist`
 --
 ALTER TABLE `watchlist`
-  ADD PRIMARY KEY (`user_id`,`model_id`);
+  ADD PRIMARY KEY (`user_id`),
+  ADD KEY `watchlist_ibfk_2` (`productCode`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -4170,7 +4185,7 @@ ALTER TABLE `watchlist`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
@@ -4218,7 +4233,8 @@ ALTER TABLE `products`
 -- Constraints for table `watchlist`
 --
 ALTER TABLE `watchlist`
-  ADD CONSTRAINT `watchlist_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `watchlist_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `watchlist_ibfk_2` FOREIGN KEY (`productCode`) REFERENCES `products` (`productCode`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
