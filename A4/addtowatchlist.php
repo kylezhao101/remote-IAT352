@@ -14,8 +14,8 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-if (isset($_SESSION['user_id'])) {
-    $user_id = $_SESSION['user_id'];
+if (isset($_SESSION['username'])) {
+    $user_id = $_SESSION['username'];
     $model_id = $_POST['model_id']; 
 
     // Prepare SQL statement

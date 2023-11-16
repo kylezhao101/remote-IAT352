@@ -1,7 +1,13 @@
 <?php
-
-if (isset($_SESSION['user_id'])) {
-    $user_id = $_SESSION['user_id'];
+//redirect to http
+if (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on") {
+    // If HTTPS is on, redirect to HTTP
+    $redirect_url = "http://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+    header("Location: " . $redirect_url);
+    exit();
+}
+session_start();
+if (isset($_SESSION['username'])) {
     $logged_in = true;
 } else {
     $logged_in = false;
@@ -66,11 +72,10 @@ if (isset($_GET['model_id'])) {
     <h2>Model details</h2>
 
     <?php
-    //todo:
-    //show add to watchlist link if logged in
-
     //details
     if ($modelDetails) {
+        echo "<a href='addtowatchlist.php?model_id=$model_id'>Add to Watchlist</a>";
+        
         echo "<table>";
         echo "<tr><th>Product Code</th><td>{$modelDetails['productCode']}</td></tr>";
         echo "<tr><th>Product Name</th><td>{$modelDetails['productName']}</td></tr>";

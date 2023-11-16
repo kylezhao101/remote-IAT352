@@ -26,7 +26,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['username'] = $username;
 
             //redirect to all models after successful login
-            header("Location: showmodels.php");
+            $redirect_url = isset($_SESSION['callback_url']) ? $_SESSION['callback_url'] : 'showmodels.php';
+            header("Location: $redirect_url");
         }
     }
 }

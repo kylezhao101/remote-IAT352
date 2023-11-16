@@ -1,14 +1,12 @@
 <?php 
-
-    //list of model names
-    //model opens to modeldetails.php
-    session_start();
-    if (isset($_SESSION['user_id'])) {
-        $user_id = $_SESSION['user_id'];
-        $logged_in = true;
-    } else {
-        $logged_in = false;
+    //redirect to http
+    if (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on") {
+        // If HTTPS is on, redirect to HTTP
+        $redirect_url = "http://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+        header("Location: " . $redirect_url);
+        exit();
     }
+    session_start();
 
     $dbserver = "localhost";
     $dbusername = "root";
