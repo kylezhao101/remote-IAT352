@@ -1,12 +1,57 @@
 <?php 
-// Display the watchlist
-$result = $conn->query("SELECT * FROM watchlist WHERE user_id = $user_id");
+session_start();
 
-if ($result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {
-        echo "model_id: " . $row["model_id"]. "<br>";
+$dbserver = "localhost";
+$dbusername = "root";
+$dbpassword = "";
+$dbname = "classicmodels";
+
+// Create connection
+$conn = new mysqli($dbserver, $dbusername, $dbpassword, $dbname);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// If logged in
+if (isset($_SESSION['username'])) {
+    $username = $_SESSION['username'];
+
+    // Fetch user ID
+    $userQuery = "SELECT id FROM users WHERE email = '$username'";
+    $userResult = $conn->query($userQuery);
+
+    if ($userResult->num_rows > 0) {
+        $userRow = $userResult->fetch_assoc();
+        $user_id = $userRow['id'];
+
+        // watchlist items
+        $watchlistQuery = 
+        "SELECT watchlist.productCode, products.productName
+        FROM watchlist JOIN products ON watchlist.productCode = products.productCode
+        WHERE watchlist.user_id = '$user_id'";
+
+        $watchlistResult = $conn->query($watchlistQuery);
+
+        echo "<h2>Your watchlist:</h2>";
+
+        if ($watchlistResult->num_rows > 0) {
+            echo "<ul>";
+            while ($row = $watchlistResult->fetch_assoc()) {
+                $model_id = $row['productCode'];
+                $model_name = $row['productName'];
+                echo "<li><a href='modeldetails.php?model_id=$model_id'>$model_name</a></li>";
+            }
+            echo "</ul>";
+        } else {
+            echo "Your watchlist is empty.";
+        }
+    } else {
+        echo "User not found.";
     }
 } else {
-    echo "0 results";
+    // Store callback url into session if not logged in
+    $_SESSION['callback_url'] = 'showwatchlist.php';
+    header("Location: login.php");
+    exit();
 }
-?>
