@@ -16,7 +16,7 @@ if ($conn->connect_error) {
 
 if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
-    $model_id = $_POST['model_id']; // assumes you're sending model_id via POST
+    $model_id = $_POST['model_id']; 
 
     // Prepare SQL statement
     $stmt = $conn->prepare("INSERT INTO watchlist (user_id, model_id) VALUES (?, ?)");
