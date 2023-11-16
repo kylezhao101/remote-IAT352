@@ -7,6 +7,11 @@ $dbname = "classicmodels";
 
 $db = new mysqli($dbserver, $dbusername, $dbpassword, $dbname);
 
+if ($_SERVER["HTTPS"] != "on") {
+    header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+    exit();
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (
         isset($_POST['first_name']) &&
@@ -16,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         isset($_POST['password']) &&
         isset($_POST['password_confirm'])
     ) {
-        // echo "Password: " . $_POST['password'] . "<br>";
+        // echo "Password: " . $_POST['passwo2rd'] . "<br>";
         // echo "Password Confirm: " . $_POST['password_confirm'] . "<br>";
         if ($_POST['password'] === $_POST['password_confirm']) {
             $sql = "SELECT COUNT(*) AS count FROM users WHERE email=?";
