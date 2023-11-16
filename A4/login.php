@@ -13,15 +13,15 @@ if ($_SERVER["HTTPS"] != "on") {
 
 //login authentication
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = $_POST["username"];
-    $sql = "select email, encrypted_password from users where email = ?";
+    $username = $_POST["email"];
+    $sql = "SELECT `email`, `encrypted_password` FROM `users` WHERE email = ?";
     $stmt = mysqli_prepare($db, $sql);
     mysqli_stmt_bind_param($stmt, "s", $username);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
     echo "" . mysqli_num_rows($result);
     if (mysqli_num_rows($result) > 0) {
-        $password = mysqli_fetch_assoc($result)['hashed_password'];
+        $password = mysqli_fetch_assoc($result)['encrypted_password'];
         if (password_verify($_POST['password'], $password)) {
             $_SESSION['username'] = $username;
 
@@ -48,8 +48,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <h1>Log in</h1>
 
         <form action="login.php" method="post">
-            Username:<br />
-            <input type="text" name="username" value="" /><br />
+            email:<br />
+            <input type="text" name="email" value="" /><br />
             Password:<br />
             <input type="password" name="password" value="" /><br />
             <input type="submit" />
