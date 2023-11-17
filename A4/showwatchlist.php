@@ -13,6 +13,8 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+include 'navbar.php';
+
 // If logged in
 if (isset($_SESSION['username'])) {
     $username = $_SESSION['username'];
@@ -25,6 +27,9 @@ if (isset($_SESSION['username'])) {
         $userRow = $userResult->fetch_assoc();
         $user_id = $userRow['id'];
 
+        // Retrieve the message from URL parameter
+        $message = isset($_GET['message']) ? $_GET['message'] : '';
+        
         // watchlist items
         $watchlistQuery = 
         "SELECT watchlist.productCode, products.productName
@@ -34,7 +39,9 @@ if (isset($_SESSION['username'])) {
         $watchlistResult = $conn->query($watchlistQuery);
 
         echo "<h2>Your watchlist:</h2>";
-
+        if (!empty($message)) {
+            echo "<p>$message</p>";
+        }
         if ($watchlistResult->num_rows > 0) {
             echo "<ul>";
             while ($row = $watchlistResult->fetch_assoc()) {

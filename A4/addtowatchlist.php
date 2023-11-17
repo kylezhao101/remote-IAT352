@@ -34,7 +34,9 @@ if (isset($_SESSION['username'])) {
         $checkResult = $conn->query($checkQuery);
         
         if ($checkResult->num_rows > 0) {
-            echo "Model is already in the watchlist.";
+            $_SESSION['message'] = "Model is already in the watchlist.";
+            header("Location: showwatchlist.php?message=" . urlencode($_SESSION['message']));
+            exit();
         } else {
             // SQL statement
             $stmt = $conn->prepare("INSERT INTO watchlist (user_id, productCode) VALUES (?, ?)");
@@ -42,8 +44,8 @@ if (isset($_SESSION['username'])) {
 
             // Execute sQL Statement
             if ($stmt->execute()) {
-                echo "Model added to watchlist successfully.";
-                header("Location: showwatchlist.php");
+                $_SESSION['message'] = "Model added to watchlist successfully.";
+                header("Location: showwatchlist.php?message=" . urlencode($_SESSION['message']));
                 exit();
             } else {
                 echo "Error: " . $stmt->error;
