@@ -22,7 +22,7 @@
         <input type="text" id="location" name="location" placeholder="Enter a location" />
 
         <label for="trip_description">Trip Description:</label>
-        <textarea id="trip_description" name="trip_description" placeholder="Enter trip description" required></textarea>
+        <textarea id="trip_description" name="trip_description" placeholder="Enter trip description" rows="5" accesskey=""required></textarea>
 
         <label for="status">Status:</label>
         <select id="status" name="status" required>
@@ -41,7 +41,7 @@
         <input type="file" id="main_img" name="main_img" accept="image/*" onchange="previewImage(this)" />
         <img id="imgPreview" style="max-width: 200px; max-height: 200px;" alt="Image Preview" />
 
-        <input type="submit" value="Create Itinerary">
+        <input type="submit" value="Initialize Itinerary">
 
     </form>
 
