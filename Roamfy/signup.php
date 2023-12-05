@@ -1,27 +1,8 @@
 <?php
 session_start();
 
-function connectToDatabase() {
-    $dbserver = "localhost";
-    $dbusername = "root";
-    $dbpassword = "";
-    $dbname = "classicmodels";
-
-    $db = new mysqli($dbserver, $dbusername, $dbpassword, $dbname);
-
-    if ($db->connect_error) {
-        die("Connection failed: " . $db->connect_error);
-    }
-
-    return $db;
-}
-
-function redirectToHttps() {
-    if ($_SERVER["HTTPS"] != "on") {
-        header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
-        exit();
-    }
-}
+include 'db_connection.php';
+include 'https_redirect.php';
 
 function registerUser($db, $firstName, $lastName, $email, $username, $password, $passwordConfirm) {
     // Check if passwords match
