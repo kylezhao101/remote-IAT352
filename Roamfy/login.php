@@ -1,15 +1,7 @@
 <?php
 session_start();
-$dbserver = "localhost";
-$dbusername = "root";
-$dbpassword = "";
-$dbname = "classicmodels";
-
-$db = new mysqli($dbserver, $dbusername, $dbpassword, $dbname);
-if ($_SERVER["HTTPS"] != "on") {
-    header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
-    exit();
-}
+include 'db_connection.php';
+include 'https_redirect.php';
 
 //login authentication
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -19,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     mysqli_stmt_bind_param($stmt, "s", $username);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
-    echo "" . mysqli_num_rows($result);
+
     if (mysqli_num_rows($result) > 0) {
         $password = mysqli_fetch_assoc($result)['encrypted_password'];
         if (password_verify($_POST['password'], $password)) {
@@ -31,7 +23,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
-
 ?>
 
 <!DOCTYPE html>
