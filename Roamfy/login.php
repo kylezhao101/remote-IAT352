@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="submit" />
         </form>
 
-        <p>Not registered yet? <a href="signup.php">Register here</a>.</p>
+        <p>Not registered yet? <a href="register.php">Register here</a>.</p>
 
     </div>
 </body>
