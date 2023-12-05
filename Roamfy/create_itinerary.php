@@ -11,8 +11,9 @@
     <script src="https://api.geoapify.com/v1/autocomplete?apiKey=API_KEY" defer></script>
 </head>
 <body>
-    <h2>Create Itinerary</h2>
+    <?php include 'layouts/navbar.php'; ?>
 
+    <h2>Create Itinerary</h2>
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 
         <label for="trip_name">Trip Name:</label>

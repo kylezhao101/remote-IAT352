@@ -19,7 +19,7 @@
         // Make sure the input value is not empty
         if (inputValue !== '') {
           // Fetch the actual API key from the server-side script
-          fetch('get_api_key.php')
+          fetch('includes/get_api_key.php')
             .then(response => response.json())
             .then(data => {
               var apiKey = data.apiKey;

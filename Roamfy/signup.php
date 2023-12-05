@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-include 'db_connection.php';
-include 'https_redirect.php';
+include 'includes/db_connection.php';
+include 'includes/https_redirect.php';
 
 function registerUser($db, $firstName, $lastName, $email, $username, $password, $passwordConfirm) {
     // Check if passwords match
@@ -81,7 +81,7 @@ function handleRegistrationForm() {
     }
 }
 
-redirectToHttps();
+enforceHttps();
 handleRegistrationForm();
 ?>
 
@@ -91,14 +91,14 @@ handleRegistrationForm();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport">
-    <title>Register</title>
+    <title>Sign Up</title>
 </head>
 
 <body>
-    <?php include 'navbar.php'; ?>
-    <h1>Register</h1>
+    <?php include 'layouts/navbar.php'; ?>
+    <h1>Sign Up</h1>
 
-    <form action="register.php" method="post">
+    <form action="signup.php" method="post">
         <!-- Add CSRF token for security -->
         <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars(session_id()); ?>">
 
@@ -120,7 +120,7 @@ handleRegistrationForm();
         <label for="password_confirm">Confirm Password:</label><br>
         <input type="password" name="password_confirm" required><br>
 
-        <button type="submit">Register</button>
+        <button type="submit">Sign Up</button>
     </form>
 </body>
 
