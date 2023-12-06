@@ -3,7 +3,7 @@ session_start();
 
 include 'db_connection.php';
 include 'https_redirect.php';
-include 'navbar.php';
+
 
 function registerUser($db, $firstName, $lastName, $email, $username, $password, $passwordConfirm) {
     // Check if passwords match
@@ -99,7 +99,7 @@ handleRegistrationForm();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SignUp</title>
 </head>
-
+ <?php include 'layouts/navbar.php'; ?>
 <body>
 
     <h1>SignUp</h1>
