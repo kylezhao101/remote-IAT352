@@ -4,7 +4,7 @@ include 'includes/db_connection.php';
 include 'includes/https_redirect.php';
 $db = connectToDatabase();
 
-//login authentication
+// login authentication
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST["email"];
     $sql = "SELECT `email`, `password` FROM `member` WHERE email = ?";
@@ -17,8 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $password = mysqli_fetch_assoc($result)['password'];
         if (password_verify($_POST['password'], $password)) {
             $_SESSION['username'] = $username;
-
-            //redirect to all models after successful login
+            
             $redirect_url = isset($_SESSION['callback_url']) ? $_SESSION['callback_url'] : 'index.php';
             header("Location: $redirect_url");
         }

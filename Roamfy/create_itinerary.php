@@ -1,7 +1,16 @@
 <?php
-// Includes
+session_start();
 include 'includes/db_connection.php';
 $conn = connectToDatabase();
+
+
+
+if (empty($_SESSION['username'])) {
+    $_SESSION['callback_url'] = 'create_itinerary.php';
+    // Redirect to login page
+    header("Location: login.php");
+} 
+
 //Process form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve form data

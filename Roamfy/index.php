@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'includes/db_connection.php';
 include 'includes/https_redirect.php';
 include 'layouts/navbar.php';
@@ -27,7 +28,7 @@ function displayItinerary($db) {
             echo "<p><strong>Duration:</strong> " . $row["duration"] . " days</p>";
             echo "<p><strong>Group Size:</strong> " . $row["group_size"] . "</p>";
             if (!empty($row["main_img"])) {
-                echo "<p><strong>Main Image:</strong> <img src='data:image/jpg;charset=utf8;base64," . base64_encode($row["main_img"]) . "' alt='Main Image'></p>";
+                echo "<img src='data:image/jpg;charset=utf8;base64," . base64_encode($row["main_img"]) . "' alt='Main Image'>";
             } else {
                 echo "<p><strong>Main Image:</strong> No image available</p>";
             }
@@ -40,8 +41,8 @@ function displayItinerary($db) {
     $result->free_result();
 }
 
-// Call the function to display itinerary
-$db = connectToDatabase();  // You need to implement this function
+
+$db = connectToDatabase(); 
 ?>
 
 <!DOCTYPE html>

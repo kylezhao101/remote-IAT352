@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 include 'includes/db_connection.php';
 include 'includes/https_redirect.php';
 
@@ -93,6 +92,7 @@ handleRegistrationForm();
 </head>
 
 <body>
+    <?php include 'layouts/navbar.php'; ?>
     <h1>SignUp</h1>
 
     <form action="signup.php" method="post">
