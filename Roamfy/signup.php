@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-include 'db_connection.php';
-include 'https_redirect.php';
+include 'includes/db_connection.php';
+include 'includes/https_redirect.php';
 
 
 function registerUser($db, $firstName, $lastName, $email, $username, $password, $passwordConfirm) {
