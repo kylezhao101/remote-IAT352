@@ -27,6 +27,28 @@ function displayItinerary($db) {
             echo "<p><strong>End Date:</strong> " . $row["end_date"] . "</p>";
             echo "<p><strong>Duration:</strong> " . $row["duration"] . " days</p>";
             echo "<p><strong>Group Size:</strong> " . $row["group_size"] . "</p>";
+            echo "<p>Last updated " . $row["last_updated_date"] . "</p>";
+
+             // Check if number_likes is not null and display it
+             if ($row["number_likes"] !== null) {
+                echo "<p><strong>Number of Likes:</strong> " . $row["number_likes"] . "</p>";
+            } else {
+                echo "<p>No likes yet, be the first to like!</p>";
+            }
+            
+            // Like button
+            echo "<form action='add_to_watchlist.php' method='post'>";
+            echo "<input type='hidden' name='itinerary_id' value='" . $row["itinerary_id"] . "'>";
+            echo "<button type='submit'>";
+            echo "<span>&#x2665;</span> Like";
+            echo "</button>";
+            echo "</form>";
+
+            // Check if forked_from is not null and display it
+            if ($row["forked_from"] !== null) {
+                echo "<p><strong>Forked From:</strong> " . $row["forked_from"] . "</p>";
+            }
+
             if (!empty($row["main_img"])) {
                 echo "<img src='data:image/jpg;charset=utf8;base64," . base64_encode($row["main_img"]) . "' alt='Main Image'>";
             } else {
