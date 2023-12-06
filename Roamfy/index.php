@@ -1,7 +1,7 @@
 <?php
 include 'includes/db_connection.php';
 include 'includes/https_redirect.php';
-
+include 'layouts/navbar.php';
 
 function displayItinerary($db) {
     // Prepare the SELECT query
