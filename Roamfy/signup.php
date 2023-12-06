@@ -4,60 +4,53 @@ session_start();
 include 'includes/db_connection.php';
 include 'includes/https_redirect.php';
 
-
 function registerUser($db, $firstName, $lastName, $email, $username, $password, $passwordConfirm) {
     // Check if passwords match
     if ($password !== $passwordConfirm) {
         return "Passwords do not match.";
     }
 
-    // Check if email is empty
-    if (empty($email)) {
-        return "Email cannot be empty.";
-    }
-
     // Check if email is already registered
-    $sql = "SELECT COUNT(*) AS count FROM member WHERE email=?";
-    $stmt = $db->prepare($sql);
+    $sqlCheckEmail = "SELECT COUNT(*) AS count FROM member WHERE email=?";
+    $stmtCheckEmail = $db->prepare($sqlCheckEmail);
 
-    if (!$stmt) {
+    if (!$stmtCheckEmail) {
         return "Error preparing statement: " . $db->error;
     }
 
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    $stmtCheckEmail->bind_param("s", $email);
+    $stmtCheckEmail->execute();
+    $resultCheckEmail = $stmtCheckEmail->get_result();
 
-    if ($result) {
-        $count = mysqli_fetch_assoc($result)['count'];
+    if ($resultCheckEmail) {
+        $count = mysqli_fetch_assoc($resultCheckEmail)['count'];
 
         if ($count > 0) {
             return "This email is already registered.";
-        } else {
-            // Insert user into the database
-            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-            $sql = "INSERT INTO member (username, password, email) 
-                    VALUES (?, ?, ?)";
-            $stmt = $db->prepare($sql);
-
-            if (!$stmt) {
-                return "Error preparing statement: " . $db->error;
-            }
-
-            $stmt->bind_param("sss", $username, $hashedPassword, $email);
-            $result = $stmt->execute();
-
-            if ($result) {
-                $_SESSION['username'] = $username;
-                header("Location: login.php");
-                exit();
-            } else {
-                return "Error registering user: " . $db->error;
-            }
         }
+    } else {
+        return "Error checking email availability: " . $db->error;
     }
 
-    return "Error checking email availability: " . $db->error;
+    // Insert user into the database
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    $sqlInsertUser = "INSERT INTO member(username, password, email) VALUES (?, ?, ?)";
+    $stmtInsertUser = $db->prepare($sqlInsertUser);
+
+    if (!$stmtInsertUser) {
+        return "Error preparing statement: " . $db->error;
+    }
+
+    $stmtInsertUser->bind_param("sss", $username, $hashedPassword, $email);
+    $resultInsertUser = $stmtInsertUser->execute();
+
+    if ($resultInsertUser) {
+        $_SESSION['username'] = $username;
+        header("Location: login.php");
+        exit();
+    } else {
+        return "Error registering user: " . $db->error;
+    }
 }
 
 function handleRegistrationForm() {
@@ -66,8 +59,7 @@ function handleRegistrationForm() {
 
         foreach ($requiredFields as $field) {
             if (!isset($_POST[$field])) {
-                echo "All fields are required.";
-                return;
+                return "All fields are required.";
             }
         }
 
@@ -99,9 +91,8 @@ handleRegistrationForm();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SignUp</title>
 </head>
- <?php include 'layouts/navbar.php'; ?>
-<body>
 
+<body>
     <h1>SignUp</h1>
 
     <form action="signup.php" method="post">
@@ -131,3 +122,6 @@ handleRegistrationForm();
 </body>
 
 </html>
+
+
+
