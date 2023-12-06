@@ -4,7 +4,7 @@ function connectToDatabase() {
     $dbserver = "localhost";
     $dbusername = "root";
     $dbpassword = "";
-    $dbname = "classicmodels";
+    $dbname = "roamfy";
 
     $db = new mysqli($dbserver, $dbusername, $dbpassword, $dbname);
 
