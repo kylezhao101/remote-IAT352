@@ -1,7 +1,7 @@
 <?php
 include 'db_connection.php';
 include 'https_redirect.php';
-include 'navbar.php';
+
 function displayItinerary($db) {
     // Prepare the SELECT query
     $sql = "SELECT * FROM itinerary";
