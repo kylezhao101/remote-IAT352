@@ -17,20 +17,21 @@ function displayItinerary($db) {
     if ($result->num_rows > 0) {
         // Output data of each row
         while ($row = $result->fetch_assoc()) {
-            echo "Itinerary ID: " . $row['itinerary_id'] . "<br>";
-            echo "Trip Name: " . $row['trip_name'] . "<br>";
-            echo "Trip Location: " . $row['trip_location'] . "<br>";
-
-            // Display the base64-encoded image
-            $base64Image = $row['main_img'];
-            $imageData = base64_encode($base64Image);
-            $imageMimeType = 'image/jpg';  // Adjust the MIME type based on your image format (e.g., 'image/png', 'image/jpeg', etc.)
-
-            echo "<p><strong>Main Image:</strong> <img src='data:$imageMimeType;charset=utf8;base64,$imageData' alt='Main Image'></p>";
-
-            // Repeat for other fields...
-
-            echo "<br>";
+            echo "<div class='itinerary-card'>";
+            echo "<h3>" . $row["trip_name"] . "</h3>";
+            echo "<h4>" . $row["trip_location"] . "</h4>";
+            echo "<p>" . $row["trip_description"] . "</p>";
+            echo "<p><strong>Status:</strong> " . $row["status"] . "</p>";
+            echo "<p><strong>Start Date:</strong> " . $row["start_date"] . "</p>";
+            echo "<p><strong>End Date:</strong> " . $row["end_date"] . "</p>";
+            echo "<p><strong>Duration:</strong> " . $row["duration"] . " days</p>";
+            echo "<p><strong>Group Size:</strong> " . $row["group_size"] . "</p>";
+            if (!empty($row["main_img"])) {
+                echo "<p><strong>Main Image:</strong> <img src='data:image/jpg;charset=utf8;base64," . base64_encode($row["main_img"]) . "' alt='Main Image'></p>";
+            } else {
+                echo "<p><strong>Main Image:</strong> No image available</p>";
+            }
+            echo "</div>";
         }
     } else {
         echo "No itineraries found.";
@@ -41,8 +42,8 @@ function displayItinerary($db) {
 
 // Call the function to display itinerary
 $db = connectToDatabase();  // You need to implement this function
-displayItinerary($db);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,7 +53,7 @@ displayItinerary($db);
 </head>
 <body>
 
-
+    <?php displayItinerary($db); ?>
     
 </body>
 </html>
