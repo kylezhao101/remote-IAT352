@@ -1,8 +1,9 @@
 <?php
 session_start();
 
-include 'includes/db_connection.php';
-include 'includes/https_redirect.php';
+include 'db_connection.php';
+include 'https_redirect.php';
+include 'navbar.php';
 
 function registerUser($db, $firstName, $lastName, $email, $username, $password, $passwordConfirm) {
     // Check if passwords match
@@ -10,8 +11,13 @@ function registerUser($db, $firstName, $lastName, $email, $username, $password, 
         return "Passwords do not match.";
     }
 
+    // Check if email is empty
+    if (empty($email)) {
+        return "Email cannot be empty.";
+    }
+
     // Check if email is already registered
-    $sql = "SELECT COUNT(*) AS count FROM users WHERE email=?";
+    $sql = "SELECT COUNT(*) AS count FROM member WHERE email=?";
     $stmt = $db->prepare($sql);
 
     if (!$stmt) {
@@ -30,15 +36,15 @@ function registerUser($db, $firstName, $lastName, $email, $username, $password, 
         } else {
             // Insert user into the database
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-            $sql = "INSERT INTO users (first_name, last_name, email, username, encrypted_password) 
-                    VALUES (?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO member (username, password, email) 
+                    VALUES (?, ?, ?)";
             $stmt = $db->prepare($sql);
 
             if (!$stmt) {
                 return "Error preparing statement: " . $db->error;
             }
 
-            $stmt->bind_param("sssss", $firstName, $lastName, $email, $username, $hashedPassword);
+            $stmt->bind_param("sss", $username, $hashedPassword, $email);
             $result = $stmt->execute();
 
             if ($result) {
@@ -60,7 +66,8 @@ function handleRegistrationForm() {
 
         foreach ($requiredFields as $field) {
             if (!isset($_POST[$field])) {
-                return "All fields are required.";
+                echo "All fields are required.";
+                return;
             }
         }
 
@@ -81,7 +88,6 @@ function handleRegistrationForm() {
     }
 }
 
-enforceHttps();
 handleRegistrationForm();
 ?>
 
@@ -90,13 +96,13 @@ handleRegistrationForm();
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport">
-    <title>Sign Up</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignUp</title>
 </head>
 
 <body>
-    <?php include 'layouts/navbar.php'; ?>
-    <h1>Sign Up</h1>
+
+    <h1>SignUp</h1>
 
     <form action="signup.php" method="post">
         <!-- Add CSRF token for security -->
@@ -120,7 +126,7 @@ handleRegistrationForm();
         <label for="password_confirm">Confirm Password:</label><br>
         <input type="password" name="password_confirm" required><br>
 
-        <button type="submit">Sign Up</button>
+        <button type="submit">SignUp</button>
     </form>
 </body>
 
