@@ -1,11 +1,7 @@
 <?php
 
-// Redirect to HTTPS
-include 'includes/https_redirect.php';
-
-// Start or resume session
 session_start();
-
+include 'includes/https_redirect.php';
 include 'includes/db_connection.php';
 
 // Function to check if the user is logged in
@@ -15,7 +11,7 @@ function isUserLoggedIn() {
 
 // Function to display the comment form
 function displayCommentForm() {
-    echo '<form method="post" action="post_comment.php">'; // Create a separate PHP file for posting comments (post_comment.php)
+    echo '<form method="post" action="post_comment.php">'; 
     echo '<textarea name="comment" rows="4" cols="50" placeholder="Write your comment here"></textarea><br>';
     echo '<input type="submit" value="Post Comment">';
     echo '</form>';
