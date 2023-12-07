@@ -4,9 +4,12 @@ include 'includes/db_connection.php';
 include 'includes/https_redirect.php';
 include 'layouts/navbar.php';
 
-function displayItinerary($db) {
-    // Prepare the SELECT query
-    $sql = "SELECT * FROM itinerary";
+function displayItinerary($db)
+{
+    // Prepare the SELECT query with a JOIN statement
+    $sql = "SELECT i.*, m.username 
+            FROM itinerary i
+            LEFT JOIN member m ON i.member_id = m.member_id";
 
     $result = $db->query($sql);
 
@@ -19,7 +22,8 @@ function displayItinerary($db) {
         // Output data of each row
         while ($row = $result->fetch_assoc()) {
             echo "<div class='itinerary-card'>";
-            echo "<h3>" . $row["trip_name"] . "</h3>";
+            // Make the trip_name an anchor linking to view_itinerary.php
+            echo "<h3><a href='view_itinerary.php?id=" . $row["itinerary_id"] . "'>" . $row["trip_name"] . "</a></h3>";
             echo "<h4>" . $row["trip_location"] . "</h4>";
             echo "<p>" . $row["trip_description"] . "</p>";
             echo "<p><strong>Status:</strong> " . $row["status"] . "</p>";
@@ -27,15 +31,18 @@ function displayItinerary($db) {
             echo "<p><strong>End Date:</strong> " . $row["end_date"] . "</p>";
             echo "<p><strong>Duration:</strong> " . $row["duration"] . " days</p>";
             echo "<p><strong>Group Size:</strong> " . $row["group_size"] . "</p>";
-            echo "<p>Last updated " . $row["last_updated_date"] . "</p>";
 
-             // Check if number_likes is not null and display it
-             if ($row["number_likes"] !== null) {
+            echo "<p>Last updated " . $row["last_updated_date"] . "</p>";
+            // Display the member_id's username
+            echo "<p><strong>Created by:</strong> " . $row["username"] . "</p>";
+
+            // Check if number_likes is not null and display it
+            if ($row["number_likes"] !== null) {
                 echo "<p><strong>Number of Likes:</strong> " . $row["number_likes"] . "</p>";
             } else {
                 echo "<p>No likes yet, be the first to like!</p>";
             }
-            
+
             // Like button
             echo "<form action='add_to_watchlist.php' method='post'>";
             echo "<input type='hidden' name='itinerary_id' value='" . $row["itinerary_id"] . "'>";
@@ -64,19 +71,22 @@ function displayItinerary($db) {
 }
 
 
-$db = connectToDatabase(); 
+$db = connectToDatabase();
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Roamfy</title>
 </head>
+
 <body>
 
     <?php displayItinerary($db); ?>
-    
+
 </body>
+
 </html>

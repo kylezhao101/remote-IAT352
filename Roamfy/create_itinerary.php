@@ -18,8 +18,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $location = $_POST["selected_location"];
     $tripDescription = $_POST["trip_description"];
     $status = $_POST["status"];
-    $startDate = $_POST["start_date"];
-    $endDate = $_POST["end_date"];
+    $startDate = !empty($_POST["start_date"]) ? $_POST["start_date"] : null;
+    $endDate = !empty($_POST["end_date"]) ? $_POST["end_date"] : null;
     $groupSize = $_POST["group_size"];
 
     // Set a temporary member_id value (replace it with the actual member_id logic)
@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Perform database insertion
-    $stmt = $conn->prepare("INSERT INTO itinerary (trip_name, trip_location, trip_description, status, duration, group_size, main_img, creation_date, member_id, start_date, end_date) VALUES (?, ?, ?, ?, ?, ?, ?, NOW(), ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO itinerary (trip_name, trip_location, trip_description, status, duration, group_size, main_img, last_updated_date, creation_date, member_id, start_date, end_date) VALUES (?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), ?, ?, ?)");
 
     $stmt->bind_param("ssssiisiss", $tripName, $location, $tripDescription, $status, $duration, $groupSize, $mainImg, $memberId, $startDate, $endDate);
 
@@ -119,7 +119,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <label for="end_date">End Date (optional):</label>
         <input type="date" id="end_date" name="end_date" />
 
-        <label for="group_size">Group Size:</label>
+        <label for="group_size">Group Size (optional):</label>
         <input type="number" id="group_size" name="group_size" placeholder="Enter group size" />
 
         <label for="main_img">Main Image Upload (optional):</label>
