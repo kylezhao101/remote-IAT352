@@ -36,13 +36,12 @@ function displayItineraryDetails($itineraryId)
         // Output data of the specified itinerary
         $row = $result->fetch_assoc();
 
+        echo "<div class='itinerary-header'>";
+        echo "<h1>" . $row["trip_name"] . "</h1>";
         // Add link to edit_itinerary.php if user is logged in and owns the itinerary
         if (isset($_SESSION['username']) && $_SESSION['member_id'] == $row['member_id']) {
             echo "<p><a href='edit_itinerary.php?id=" . $row["itinerary_id"] . "'>Edit Your Itinerary</a></p>";
         }
-        
-        echo "<div class='itinerary-header'>";
-        echo "<h1>" . $row["trip_name"] . "</h1>";
         echo "<h4>" . $row["trip_location"] . "</h4>";
         echo "<p>" . $row["trip_description"] . "</p>";
         echo "<p><strong>Status:</strong> " . $row["status"] . "</p>";

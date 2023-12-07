@@ -104,7 +104,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <label for="location">Location:</label>
         <?php include 'location_autocomplete.php'; ?>
-
         <input type="hidden" id="selected_location" name="selected_location" />
 
 
