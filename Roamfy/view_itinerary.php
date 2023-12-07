@@ -36,6 +36,11 @@ function displayItineraryDetails($itineraryId)
         // Output data of the specified itinerary
         $row = $result->fetch_assoc();
 
+        // Add link to edit_itinerary.php if user is logged in and owns the itinerary
+        if (isset($_SESSION['username']) && $_SESSION['member_id'] == $row['member_id']) {
+            echo "<p><a href='edit_itinerary.php?id=" . $row["itinerary_id"] . "'>Edit Your Itinerary</a></p>";
+        }
+        
         echo "<div class='itinerary-header'>";
         echo "<h1>" . $row["trip_name"] . "</h1>";
         echo "<h4>" . $row["trip_location"] . "</h4>";
@@ -48,7 +53,7 @@ function displayItineraryDetails($itineraryId)
 
         echo "<p>Last updated " . $row["last_updated_date"] . "</p>";
         // Display the member_id's username
-        echo "<p><strong>Created by:</strong> " . $row["username"] . "</p>";
+        echo "<p>Created by: " . $row["username"] . "</p>";
 
         // Check if number_likes is not null and display it
         if ($row["number_likes"] !== null) {

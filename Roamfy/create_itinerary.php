@@ -68,6 +68,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             } else {
                 echo "<p><strong>Main Image:</strong> No image available</p>";
             }
+
+            // Redirect to edit_itinerary.php with the new itinerary's ID
+            $itineraryId = $row["itinerary_id"];
+            header("Location: edit_itinerary.php?id=$itineraryId");
+            exit();
         } else {
             echo "Error fetching data from the database.";
         }
