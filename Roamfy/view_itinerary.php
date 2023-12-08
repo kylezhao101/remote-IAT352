@@ -3,6 +3,7 @@ session_start();
 include 'includes/db_connection.php';
 include 'includes/https_redirect.php';
 include 'layouts/navbar.php';
+include 'includes/display_entries_function.php';
 
 // Check if the 'id' parameter is set in the URL
 if (isset($_GET['id'])) {
@@ -103,6 +104,8 @@ function displayItineraryDetails($itineraryId)
 
     <!-- Display the detailed information of the specified itinerary -->
     <?php displayItineraryDetails($itineraryId); ?>
+    
+    <?php displayEntries($itineraryId); ?>
 
 </body>
 
