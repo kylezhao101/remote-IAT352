@@ -103,7 +103,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input type="text" id="trip_name" name="trip_name" placeholder="Enter trip name" required />
 
         <label for="location">Location:</label>
-        <?php include 'location_autocomplete.php'; ?>
+        <?php include 'includes/location_autocomplete.php'; ?>
         <input type="hidden" id="selected_location" name="selected_location" />
 
 

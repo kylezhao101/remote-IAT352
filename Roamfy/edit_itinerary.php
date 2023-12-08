@@ -62,43 +62,6 @@ function displayItineraryDetails($itineraryId)
     $result->free_result();
 }
 
-function displayEntries($itineraryId)
-{
-    // Fetch entries from the database
-    $sql = "SELECT * FROM itinerary_entry WHERE itinerary_id = ? ORDER BY day_of_trip";
-
-    $db = connectToDatabase();
-    $stmt = $db->prepare($sql);
-    $stmt->bind_param("i", $itineraryId);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    // Check if there are rows in the result set
-    if ($result->num_rows > 0) {
-        echo "<div class='itinerary-entries'>";
-        echo "<h2>Entries</h2>";
-
-        while ($row = $result->fetch_assoc()) {
-            // Display entry details
-            echo "<div>";
-            echo "<p>Day " . $row['day_of_trip'] . "</p>";
-            echo "<p><strong>Accommodation:</strong> " . $row['accommodation'] . "</p>";
-            echo "<p><strong>Location:</strong> " . $row['location'] . "</p>";
-            echo "<p><strong>Body Text:</strong> " . $row['body_text'] . "</p>";
-            echo "</div>";
-        }
-
-        echo "</div>";
-    } else {
-        echo "<p>No entries found.</p>";
-    }
-
-    // Close the statement and result set
-    $stmt->close();
-    $result->free_result();
-}
-
-
 ?>
 
 <!DOCTYPE html>
@@ -112,18 +75,60 @@ function displayEntries($itineraryId)
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
         $(document).ready(function() {
-            // Function to show/hide the entry form
             function toggleEntryForm() {
                 $(".itinerary-entry-form").toggle();
             }
 
-            // Hide the form initially
             $(".itinerary-entry-form").hide();
 
-            // Add a click event to the "Create New Entry" button
             $("#createNewEntryBtn").click(function() {
                 toggleEntryForm();
             });
+
+            // Add AJAX submission for the form
+            $("form").submit(function(event) {
+                // Prevent the default form submission
+                event.preventDefault();
+
+                // Get the form data
+                var formData = new FormData(this);
+
+                // Use AJAX to submit the form
+                $.ajax({
+                    type: "POST",
+                    url: "includes/process_entry.php",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function() {
+                        // On successful submission, reload the entries
+                        loadEntries();
+                        // Hide the entry form again
+                        toggleEntryForm();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error submitting form: " + error);
+                    },
+                });
+            });
+
+            // Function to load entries dynamically
+            function loadEntries() {
+                $.ajax({
+                    type: "GET",
+                    url: "load_entries.php?id=" + <?php echo $itineraryId; ?>, // Specify the correct URL
+                    success: function(data) {
+                        // Update the entries container with the new entries
+                        $("#itinerary-entries-container").html(data);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error loading entries: " + error);
+                    },
+                });
+            }
+
+            // Initial load of entries
+            loadEntries();
         });
     </script>
 </head>
@@ -132,13 +137,17 @@ function displayEntries($itineraryId)
 
     <!-- Display the itinerary header -->
     <?php displayItineraryDetails($itineraryId); ?>
-    <?php displayEntries($itineraryId); ?>
+    <!-- Display the entries container with an id -->
+    <div id="itinerary-entries-container" class="itinerary-entries">
+        <h2>Entries</h2>
+        <!-- Entries will be dynamically added here -->
+    </div>
     <button id="createNewEntryBtn">Create New Entry</button>
 
     <!-- Display the entry form -->
     <div class="itinerary-entry-form" style="display: none;">
         <h2>New Entry</h2>
-        <form method="post" action="process_entry.php" enctype="multipart/form-data">
+        <form method="post" action="includes/process_entry.php" enctype="multipart/form-data">
             <!-- Hidden field to pass itinerary ID -->
             <input type="hidden" name="itineraryId" value="<?php echo $itineraryId; ?>">
 
@@ -146,7 +155,7 @@ function displayEntries($itineraryId)
             <input type="text" name="accommodation"><br>
 
             <label for="location">Location:</label>
-            <?php include 'location_autocomplete.php'; ?>
+            <?php include 'includes/location_autocomplete.php'; ?>
             <input type="hidden" id="selected_location" name="selected_location" />
 
             <label for="image">Image:</label>

@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'includes/db_connection.php';
+include 'db_connection.php';
 
 $conn = connectToDatabase();
 
@@ -37,10 +37,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt = $conn->prepare("INSERT INTO itinerary_entry (itinerary_id, day_of_trip, accommodation, location, image, body_text) VALUES (?, ?, ?, ?, ?, ?)");
 
     $stmt->bind_param("iissss", $itineraryId, $dayOfTrip, $accommodation, $location, $image, $bodyText);
-
+    
     // Execute the statement
     if ($stmt->execute()) {
-        header("Location: edit_itinerary.php?id=$itineraryId");
         exit();
     } else {
         echo "Error: " . $stmt->error;
