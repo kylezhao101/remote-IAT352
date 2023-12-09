@@ -1,6 +1,6 @@
 <?php
-include 'includes/db_connection.php';
-include 'includes/display_itinerary_functions.php';
+include 'db_connection.php';
+include 'display_itinerary_functions.php';
 
 // Check if the 'id' parameter is set in the URL
 if (isset($_GET['id'])) {

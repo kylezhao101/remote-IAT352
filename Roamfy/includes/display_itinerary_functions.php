@@ -1,3 +1,4 @@
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <?php
 
 // Function to display Itinerary cards ----------------------------------------
@@ -73,6 +74,7 @@ function displayItineraryCards($db)
 
     $result->free_result();
 }
+
 // Function to display Itinerary headers ----------------------------------------
 function displayItineraryDetailsHeader($itineraryId)
 {
@@ -226,19 +228,61 @@ function displayEntries($itineraryId)
             <script src='https://code.jquery.com/jquery-3.6.4.min.js'></script>
             <script>
                 $(document).ready(function() {
+                    //toggle and change button text on click
                     function toggleForm(entryId) {
                         $("#editEntryForm" + entryId).toggle();
                         var buttonText = $("#editEntry" + entryId).text();
                         var newButtonText = buttonText === "Edit Entry" ? "Cancel" : "Edit Entry";
                         $("#editEntry" + entryId).text(newButtonText);
                     }
-
+                    //hide form initially
                     $(".edit-entry-form").hide();
 
                     $(".edit-entry-btn").click(function() {
                         var entryId = $(this).data('entry-id');
                         toggleForm(entryId);
                     });
+
+                    // Add AJAX submission for the form
+                    $("form").submit(function(event) {
+                        // Prevent the default form submission
+                        event.preventDefault();
+
+                        // Get the form data
+                        var formData = new FormData(this);
+
+                        // Use AJAX to submit the form
+                        $.ajax({
+                            type: "POST",
+                            url: "includes/process_entry_update.php",
+                            data: formData,
+                            contentType: false,
+                            processData: false,
+                            success: function() {
+                                // On successful submission, reload the entries
+                                loadEntries();
+                                // Hide the entry form again
+                                toggleForm();
+                            },
+                            error: function(xhr, status, error) {
+                                console.error("Error submitting form: " + error);
+                            },
+                        });
+                    });
+                    // Function to load entries dynamically
+                    function loadEntries() {
+                        $.ajax({
+                            type: "GET",
+                            url: "includes/load_entries.php?id=" + <?php echo $itineraryId; ?>, // Specify the correct URL
+                            success: function(data) {
+                                // Update the entries container with the new entries
+                                $("#itinerary-entries-container").html(data);
+                            },
+                            error: function(xhr, status, error) {
+                                console.error("Error loading entries: " + error);
+                            },
+                        });
+                    }
                 });
             </script>
         </div>

@@ -27,14 +27,15 @@ if (isset($_GET['id'])) {
         
         $(document).ready(function() {
             
-            function toggleEntryForm() {
-                $(".itinerary-entry-form").toggle();
-            }
-
+            //hide form initially
             $(".itinerary-entry-form").hide();
 
+            //toggle and change button text on click
             $("#createNewEntryBtn").click(function() {
-                toggleEntryForm();
+                $(".itinerary-entry-form").toggle();
+                var buttonText = $("#createNewEntryBtn").text();
+                var newButtonText = buttonText === "Create New Entry" ? "Cancel" : "Create New Entry";
+                $("#createNewEntryBtn").text(newButtonText);
             });
 
             // Add AJAX submission for the form
@@ -68,7 +69,7 @@ if (isset($_GET['id'])) {
             function loadEntries() {
                 $.ajax({
                     type: "GET",
-                    url: "load_entries.php?id=" + <?php echo $itineraryId; ?>, // Specify the correct URL
+                    url: "includes/load_entries.php?id=" + <?php echo $itineraryId; ?>, // Specify the correct URL
                     success: function(data) {
                         // Update the entries container with the new entries
                         $("#itinerary-entries-container").html(data);
