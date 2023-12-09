@@ -158,7 +158,7 @@ function displayItineraryDetails($itineraryId)
             <?php include 'includes/location_autocomplete.php'; ?>
             <input type="hidden" id="selected_location" name="selected_location" />
 
-            <label for="image">Image:</label>
+            <label for="main_img">Image:</label>
             <input type="file" id="main_img" name="main_img" accept="image/*" /><br>
 
             <label for="body_text">Body Text:</label>

@@ -26,8 +26,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $image = null; // Initialize to null
 
     // Handle file upload
-    if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-        $tempName = $_FILES['image']['tmp_name'];
+    if (isset($_FILES['main_img']) && $_FILES['main_img']['error'] === UPLOAD_ERR_OK) {
+        $tempName = $_FILES['main_img']['tmp_name'];
         $image = file_get_contents($tempName);
     }
 

@@ -22,6 +22,11 @@ function displayEntries($itineraryId)
             echo "<p><strong>Accommodation:</strong> " . $row['accommodation'] . "</p>";
             echo "<p><strong>Location:</strong> " . $row['location'] . "</p>";
             echo "<p><strong>Body Text:</strong> " . $row['body_text'] . "</p>";
+            if (!empty($row["image"])) {
+                echo "<img src='data:image/jpg;charset=utf8;base64," . base64_encode($row["image"]) . "' alt='Image'>";
+            } else {
+                echo "<p><strong>Main Image:</strong> No image available</p>";
+            }
             echo "</div>";
         }
 
