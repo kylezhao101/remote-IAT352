@@ -2,10 +2,11 @@
 // includes/process_entry_update.php
 include ("db_connection.php");
 $db = connectToDatabase();
+var_dump($_POST);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Retrieve form data
-    $entryId = $_POST['entryId'];
+    $entryId = $_POST['itinerary_entry_id'];
     $accommodation = $_POST['accommodation'];
     $location = $_POST['selected_location'];
     $bodyText = $_POST['body_text'];
