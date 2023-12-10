@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Set session variables on successful login
             $_SESSION['username'] = $username;
             $_SESSION['member_id'] = $user['member_id'];
-            
+
             // Redirect to the specified URL or default to index.php
             $redirect_url = isset($_SESSION['callback_url']) ? $_SESSION['callback_url'] : 'index.php';
             header("Location: $redirect_url");
@@ -42,20 +42,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log in</title>
+    <link rel="stylesheet" href="styles/main.css">
 </head>
 
 <body>
     <?php include 'layouts/navbar.php'; ?>
     <div id="content">
-        <h1>Log in</h1>
+        <h3>Log in</h3>
 
         <!-- Login form -->
-        <form action="login.php" method="post">
-            email:<br />
-            <input type="text" name="email" value="" /><br />
-            Password:<br />
-            <input type="password" name="password" value="" /><br />
-            <input type="submit" />
+        <form action="login.php" method="post" class="auth-form">
+            <label for="email">Email</label>
+            <input type="text" name="email" id="email" placeholder="e.g. 123@email.com" />
+
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" placeholder="Enter your password" />
+
+            <input type="submit" value="Log in" />
         </form>
 
         <!-- Registration link -->

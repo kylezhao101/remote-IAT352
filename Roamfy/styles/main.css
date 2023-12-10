@@ -3,9 +3,9 @@
 /* Import the Inter font from Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap');
 
-/* *{
-    border:1px red solid;
-} */
+* {
+    margin: 0;
+}
 
 h1,
 h2,
@@ -30,29 +30,28 @@ h2 {
 
 h3 {
     font-size: 2.074rem;
+    font-weight: 500;
 }
 
 h4 {
     font-size: 1.728rem;
+    font-weight: 500;
 }
 
 h5 {
-    font-size: 1.44rem;
+    font-size: 1.2rem;
 }
 
 a {
-    text-decoration: none;
-    color: black;
-}
-
-a:visited {
+    text-decoration:underline;
     color: black;
 }
 
 p {
     font-family: 'Inter', sans-serif;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     font-weight: 400;
+    line-height: 1.5;
 }
 
 small {
@@ -63,40 +62,51 @@ small {
 }
 
 /* navbar styling */
+nav {
+    padding: 1rem;
+}
+
 nav ul {
     list-style-type: none;
     display: flex;
     column-gap: 3rem;
     padding: 0;
-
 }
 
 nav a {
+    color: black;
+    text-decoration: none;
     font-family: 'Inter', sans-serif;
 }
 
 /* Itinerary card styling */
 .itinerary-cards-container {
+    padding-left: 1rem;
+    padding-right: 1rem;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
     gap: 20px;
 }
+
 .itinerary-card {
     max-width: 100%;
     overflow: hidden;
     box-sizing: border-box;
 }
+
 .itinerary-card img {
     width: 100%;
     height: auto;
     display: block;
 }
+
 .itinerary-link {
-    font-weight:500;
+    font-weight: 500;
     text-decoration: none;
     color: #18272F;
     position: relative;
 }
+
 .itinerary-link::before {
     content: '';
     background-color: #fdd142c7;
@@ -109,7 +119,51 @@ nav a {
     z-index: -1;
     transition: all .3s ease-in-out;
 }
+
 .itinerary-link:hover::before {
     bottom: 0;
     height: 100%;
+}
+
+.itinerary-card-details {
+    margin-top: 15px;
+    margin-bottom: 20px;
+    display: inline-block;
+    border-bottom: 1px solid #8f8f8f;
+}
+
+/* Login and Sign up form */
+.auth-form {
+    max-width: 350px;
+    margin: 0;
+    margin-bottom:30px;
+}
+.auth-form label {
+    margin-bottom: 8px;
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+}
+
+.auth-form input[type="text"],
+.auth-form input[type="password"],
+.auth-form input[type="email"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      border-radius: 4px;
+}
+
+.auth-form input[type="submit"] {
+    background-color: #000000;
+    color: #e0e0e0;
+    cursor: pointer;
+    padding: 12px;
+    font-size: 20px;
+    display: block; 
+    width: 100%;
+    margin: 0; 
 }

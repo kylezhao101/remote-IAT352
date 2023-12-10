@@ -3,7 +3,8 @@ session_start();
 include 'includes/db_connection.php';
 include 'includes/https_redirect.php';
 
-function registerUser($db, $firstName, $lastName, $email, $username, $password, $passwordConfirm) {
+function registerUser($db, $firstName, $lastName, $email, $username, $password, $passwordConfirm)
+{
     // Check if passwords match
     if ($password !== $passwordConfirm) {
         return "Passwords do not match.";
@@ -52,7 +53,8 @@ function registerUser($db, $firstName, $lastName, $email, $username, $password, 
     }
 }
 
-function handleRegistrationForm() {
+function handleRegistrationForm()
+{
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $requiredFields = ['first_name', 'last_name', 'email', 'username', 'password', 'password_confirm'];
 
@@ -88,40 +90,38 @@ handleRegistrationForm();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SignUp</title>
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="styles/main.css">
 </head>
 
 <body>
     <?php include 'layouts/navbar.php'; ?>
-    <h1>SignUp</h1>
-
-    <form action="signup.php" method="post">
+    <h3>Sign Up</h3>
+    <form action="signup.php" method="post" class="auth-form">
         <!-- Add CSRF token for security -->
         <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars(session_id()); ?>">
 
-        <label for="first_name">First Name:</label><br>
-        <input type="text" name="first_name" required><br>
+        <label for="first_name">First Name:</label>
+        <input type="text" name="first_name" placeholder="Enter your first name" required>
 
-        <label for="last_name">Last Name:</label><br>
-        <input type="text" name="last_name" required><br>
+        <label for="last_name">Last Name:</label>
+        <input type="text" name="last_name" placeholder="Enter your last name" required>
 
-        <label for="email">Email:</label><br>
-        <input type="email" name="email" required><br>
+        <label for="email">Email:</label>
+        <input type="email" name="email" placeholder="e.g. 123@email.com" required>
 
-        <label for="username">Username:</label><br>
-        <input type="text" name="username" required><br>
+        <label for="username">Username:</label>
+        <input type="text" name="username" placeholder="Choose a username" required>
 
-        <label for="password">Password:</label><br>
-        <input type="password" name="password" required><br>
+        <label for="password">Password:</label>
+        <input type="password" name="password" placeholder="Enter your password" required>
 
-        <label for="password_confirm">Confirm Password:</label><br>
-        <input type="password" name="password_confirm" required><br>
+        <label for="password_confirm">Confirm Password:</label>
+        <input type="password" name="password_confirm" placeholder="Confirm your password" required>
 
-        <button type="submit">SignUp</button>
+        <input type="submit" value="Sign Up">
     </form>
+
 </body>
 
 </html>
-
-
-

@@ -29,16 +29,18 @@ function displayItineraryCards($db)
             echo "<h4><a href='view_itinerary.php?id=" . $row["itinerary_id"] . "' class='itinerary-link'>" . $row["trip_name"] . "</a></h4>";
 
             echo "<h5>" . $row["trip_location"] . "</h5>";
-            echo "<p><strong>Status:</strong> " . $row["status"] . "</p>";
-            echo "<p>" . $row["trip_description"] . "</p>";
+            
+            echo "<div class='itinerary-card-details'>";
+            echo "<p><strong>Status:</strong> " . $row["status"] . "<strong> | Duration:</strong> " . $row["duration"] . " days <strong>| Group Size:</strong> " . $row["group_size"] . "</p>";
+            echo "</div>";
+
+            echo "<p>" . $row["trip_description"] . "</p><br>";
             
             if(!empty($row["start_date"])){
                 echo "<p>From " . $row["start_date"] . " to " . $row["end_date"] . "</p>";
             }
-
-            echo "<p><strong>Duration:</strong> " . $row["duration"] . " days <strong>Group Size:</strong> " . $row["group_size"] . "</p>";
             // Display the member_id's username
-            echo "<p><strong>Created by:</strong> " . $row["username"] . "</p>";
+            echo "<p><strong>Created by:</strong> " . $row["username"] . "</p><br>";
 
             // Check if number_likes is not null and display it
             if ($row["number_likes"] !== null) {

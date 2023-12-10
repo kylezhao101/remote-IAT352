@@ -2,7 +2,6 @@
 session_start();
 include 'includes/db_connection.php';
 include 'includes/https_redirect.php';
-include 'layouts/navbar.php';
 include 'includes/display_itinerary_functions.php';
 
 $db = connectToDatabase();
@@ -19,6 +18,7 @@ $db = connectToDatabase();
 </head>
 
 <body>
+    <?php include 'layouts/navbar.php'; ?>
     <div class="itinerary-cards-container">
         <?php displayItineraryCards($db); ?>
     </div>

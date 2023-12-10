@@ -6,6 +6,7 @@
 <body>
     <nav>
         <ul>
+            <li><a href="index.php">Roamfy</a></li>
             <li><a href="index.php">Home</a></li>
             <?php
             if (isset($_SESSION['username'])) {
