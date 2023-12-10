@@ -9,7 +9,7 @@ if (empty($_SESSION['username'])) {
     $_SESSION['callback_url'] = 'create_itinerary.php';
     // Redirect to login page
     header("Location: login.php");
-} 
+}
 
 //Process form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -91,13 +91,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Itinerary</title>
+    <link rel="stylesheet" href="styles/main.css">
 </head>
 
 <body>
     <?php include 'layouts/navbar.php'; ?>
 
-    <h2>Create Itinerary</h2>
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
+    <h3>Create an Itinerary</h3>
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data" class="itinerary-creation-form">
 
         <label for="trip_name">Trip Name:</label>
         <input type="text" id="trip_name" name="trip_name" placeholder="Enter trip name" required />
@@ -110,21 +111,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <label for="trip_description">Trip Description:</label>
         <textarea id="trip_description" name="trip_description" placeholder="Enter trip description" rows="5" accesskey="" required></textarea>
 
-        <label for="status">Status:</label>
-        <select id="status" name="status" required>
-            <option value="planning">Planning</option>
-            <option value="in_progress">In Progress</option>
-            <option value="complete">Complete</option>
-        </select>
+        <div class="form-group">
+            <div class="col">
+                <label for="status">Status:</label>
+                <select id="status" name="status" required>
+                    <option value="planning">Planning</option>
+                    <option value="in_progress">In Progress</option>
+                    <option value="complete">Complete</option>
+                </select>
+            </div>
 
-        <label for="start_date">Start Date (optional):</label>
-        <input type="date" id="start_date" name="start_date" />
+            <div class="col">
+                <label for="group_size">Group Size (optional):</label>
+                <input type="number" id="group_size" name="group_size" placeholder="Enter group size" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col">
+                <label for="start_date">Start Date (optional):</label>
+                <input type="date" id="start_date" name="start_date" />
+            </div>
 
-        <label for="end_date">End Date (optional):</label>
-        <input type="date" id="end_date" name="end_date" />
-
-        <label for="group_size">Group Size (optional):</label>
-        <input type="number" id="group_size" name="group_size" placeholder="Enter group size" />
+            <div class="col">
+                <label for="end_date">End Date (optional):</label>
+                <input type="date" id="end_date" name="end_date" />
+            </div>
+        </div>
 
         <label for="main_img">Main Image Upload (optional):</label>
         <input type="file" id="main_img" name="main_img" accept="image/*" onchange="previewImage(this)" />
