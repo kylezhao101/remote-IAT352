@@ -11,7 +11,8 @@ h1,
 h2,
 h3,
 h4,
-h5 {
+h5,
+h6 {
     font-family: 'Inter', sans-serif;
     font-weight: 400;
     margin-top: 0.7rem;
@@ -40,8 +41,13 @@ h4 {
 
 h5 {
     font-size: 1.2rem;
+    font-weight: 500;
 }
 
+h6{
+    font-size: 1.1rem;
+    font-weight:500;
+}
 a {
     text-decoration:underline;
     color: black;
@@ -129,7 +135,6 @@ nav a {
     margin-top: 15px;
     margin-bottom: 20px;
     display: inline-block;
-    border-bottom: 1px solid #8f8f8f;
 }
 
 /* Login and Sign up form */
@@ -158,8 +163,9 @@ nav a {
 }
 
 .auth-form input[type="submit"] {
-    background-color: #000000;
-    color: #e0e0e0;
+    background-color: #fdd142;
+    border:none;
+    color: #141414;
     cursor: pointer;
     padding: 12px;
     font-size: 20px;
@@ -210,11 +216,55 @@ nav a {
     width:50%;
 }
 .itinerary-creation-form  input[type="submit"] {
-    background-color: #000000;
-    color: #ffffff;
+    background-color: #fdd142;
+    color: #141414;
     padding: 12px;
     font-size: 20px;
     display: block; 
+    border:none;
     width: 100%;
     margin: 0; 
+}
+/* view itinerary */
+.itinerary-entry{
+    margin-bottom: 20px;
+}
+.itinerary-header-container{
+    width:70%;
+    margin-left:auto;
+    margin-right:auto;
+}
+.itinerary-entries-container{
+    width:70%;
+    margin-left:auto;
+    margin-right:auto;
+}
+.itinerary-header img{
+    width:100%;
+    height:400px;
+    object-fit: cover;
+}
+/* entries */
+.entry-header{
+    display:flex;
+    flex-direction: row;
+    column-gap: 20px;
+    row-gap: 0px;
+    border-top:1px solid black;
+    margin-bottom:20px;
+}
+.itinerary-entry img{
+    width: 50%; 
+    min-height:auto;
+    object-fit: cover;
+}
+.entry-content{
+    display:flex;
+    column-gap: 20px;
+}
+.entry-item p{
+    width:90%;
+}
+.entry-item{
+    width:50%;
 }

@@ -1,4 +1,3 @@
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <?php
 
 // Function to display Itinerary cards ----------------------------------------
@@ -23,20 +22,20 @@ function displayItineraryCards($db)
             echo "<div class='itinerary-card'>";
             if (!empty($row["main_img"])) {
                 echo "<img src='data:image/jpg;charset=utf8;base64," . base64_encode($row["main_img"]) . "' alt='Main Image'>";
-            } 
+            }
             echo "<div class='itinerary-card-content'>";
             // Make the trip_name an anchor linking to view_itinerary.php
             echo "<h4><a href='view_itinerary.php?id=" . $row["itinerary_id"] . "' class='itinerary-link'>" . $row["trip_name"] . "</a></h4>";
 
             echo "<h5>" . $row["trip_location"] . "</h5>";
-            
+
             echo "<div class='itinerary-card-details'>";
             echo "<p><strong>Status:</strong> " . $row["status"] . "<strong> | Duration:</strong> " . $row["duration"] . " days <strong>| Group Size:</strong> " . $row["group_size"] . "</p>";
             echo "</div>";
 
             echo "<p>" . $row["trip_description"] . "</p><br>";
-            
-            if(!empty($row["start_date"])){
+
+            if (!empty($row["start_date"])) {
                 echo "<p>From " . $row["start_date"] . " to " . $row["end_date"] . "</p>";
             }
             // Display the member_id's username
@@ -103,22 +102,26 @@ function displayItineraryDetailsHeader($itineraryId)
         $row = $result->fetch_assoc();
 
         echo "<div class='itinerary-header'>";
-        echo "<h1>" . $row["trip_name"] . "</h1>";
-        // Add link to edit_itinerary.php if user is logged in and owns the itinerary
-        if (isset($_SESSION['username']) && $_SESSION['member_id'] == $row['member_id']) {
-            echo "<p><a href='edit_itinerary.php?id=" . $row["itinerary_id"] . "'>Edit Your Itinerary</a></p>";
+        if (!empty($row["main_img"])) {
+            echo "<img src='data:image/jpg;charset=utf8;base64," . base64_encode($row["main_img"]) . "' alt='Main Image'>";
         }
-        echo "<h4>" . $row["trip_location"] . "</h4>";
-        echo "<p>" . $row["trip_description"] . "</p>";
-        echo "<p><strong>Status:</strong> " . $row["status"] . "</p>";
-        echo "<p><strong>Start Date:</strong> " . $row["start_date"] . "</p>";
-        echo "<p><strong>End Date:</strong> " . $row["end_date"] . "</p>";
-        echo "<p><strong>Duration:</strong> " . $row["duration"] . " days</p>";
-        echo "<p><strong>Group Size:</strong> " . $row["group_size"] . "</p>";
+        echo "<div class='itinerary-card-content'>";
+        // Make the trip_name an anchor linking to view_itinerary.php
+        echo "<h4>" . $row["trip_name"] . "</h4>";
 
-        echo "<p>Last updated " . $row["last_updated_date"] . "</p>";
+        echo "<h5>" . $row["trip_location"] . "</h5>";
+
+        echo "<div class='itinerary-card-details'>";
+        echo "<p><strong>Status:</strong> " . $row["status"] . "<strong> | Duration:</strong> " . $row["duration"] . " days <strong>| Group Size:</strong> " . $row["group_size"] . "</p>";
+        echo "</div>";
+
+        echo "<p>" . $row["trip_description"] . "</p><br>";
+
+        if (!empty($row["start_date"])) {
+            echo "<p>From " . $row["start_date"] . " to " . $row["end_date"] . "</p>";
+        }
         // Display the member_id's username
-        echo "<p>Created by: " . $row["username"] . "</p>";
+        echo "<p><strong>Created by:</strong> " . $row["username"] . "</p><br>";
 
         // Check if number_likes is not null and display it
         if ($row["number_likes"] !== null) {
@@ -139,12 +142,12 @@ function displayItineraryDetailsHeader($itineraryId)
         if ($row["forked_from"] !== null) {
             echo "<p><strong>Forked From:</strong> " . $row["forked_from"] . "</p>";
         }
-
-        if (!empty($row["main_img"])) {
-            echo "<img src='data:image/jpg;charset=utf8;base64," . base64_encode($row["main_img"]) . "' alt='Main Image'>";
-        } else {
-            echo "<p><strong>Main Image:</strong> No image available</p>";
+        // Add link to edit_itinerary.php if user is logged in and owns the itinerary
+        if (isset($_SESSION['username']) && $_SESSION['member_id'] == $row['member_id']) {
+            echo "<p><a href='edit_itinerary.php?id=" . $row["itinerary_id"] . "'>Edit Your Itinerary</a></p>";
         }
+        echo "<p><small>Last updated " . $row["last_updated_date"] . "</small></p>";
+        echo "</div>";
         echo "</div>";
     } else {
         echo "No itinerary found for the specified ID.";
@@ -155,7 +158,7 @@ function displayItineraryDetailsHeader($itineraryId)
     $result->free_result();
 }
 
-// Function to display entries ----------------------------------------
+// Function to display entries in edit mode ----------------------------------------
 function displayEntries($itineraryId)
 {
     session_start();
@@ -297,7 +300,7 @@ function displayEntries($itineraryId)
     $result->free_result();
 }
 
-// Function to display entries edit mode ----------------------------------------
+// Function to display entries ----------------------------------------
 function displayEntriesNoEdit($itineraryId)
 {
     // Fetch entries from the database
@@ -316,24 +319,31 @@ function displayEntriesNoEdit($itineraryId)
     if ($result->num_rows > 0) {
     ?>
         <div class='itinerary-entries'>
-            <h2>Entries</h2>
-
             <?php
             while ($row = $result->fetch_assoc()) {
                 // Display entry details
             ?>
-                <div>
-                    <p>Day <?= $row['day_of_trip'] ?></p>
-                    <p><strong>Accommodation:</strong> <?= $row['accommodation'] ?></p>
-                    <p><strong>Location:</strong> <?= $row['location'] ?></p>
-                    <p><strong>Body Text:</strong> <?= $row['body_text'] ?></p>
-                    <?php
-                    if (!empty($row["image"])) {
-                        echo "<img src='data:image/jpg;charset=utf8;base64," . base64_encode($row["image"]) . "' alt='Image'>";
-                    } else {
-                        echo "<p><strong>Image:</strong> No image available</p>";
-                    }
-                    ?>
+                <div class='itinerary-entry'>
+                    <div class='entry-header'>
+                        <div class='entry-item'>
+                            <h4>Day <?= $row['day_of_trip'] ?></h4>
+                        </div>
+                        <div>
+                            <h6><?= $row['location'] ?></h6>
+                        </div>
+                    </div>
+
+                    <div class='entry-content'>
+                        <?php
+                        if (!empty($row["image"])) {
+                            echo "<img src='data:image/jpg;charset=utf8;base64," . base64_encode($row["image"]) . "' alt='Image'>";
+                        }
+                        ?>
+                        <div class='entry-item'>
+                            <p class='entry-body'><?= $row['body_text'] ?></p><br>
+                            <p><strong>Accommodation:</strong> <?= $row['accommodation'] ?></p>
+                        </div>
+                    </div>
                 </div>
             <?php
             }
