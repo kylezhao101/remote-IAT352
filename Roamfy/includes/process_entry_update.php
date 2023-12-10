@@ -1,8 +1,7 @@
 <?php
 // includes/process_entry_update.php
-include ("db_connection.php");
+include("db_connection.php");
 $db = connectToDatabase();
-var_dump($_POST);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Retrieve form data
@@ -11,10 +10,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $location = $_POST['selected_location'];
     $bodyText = $_POST['body_text'];
 
-    // Handle image upload
-    $image = null;
+    // Check if a new file has been uploaded
     if ($_FILES['main_img']['error'] == 0) {
+        // New file uploaded, process and update the database
         $image = file_get_contents($_FILES['main_img']['tmp_name']);
+    } else {
+        // No new file uploaded, retrieve the existing image associated with the entry
+        $sql = "SELECT image FROM itinerary_entry WHERE itinerary_entry_id=?";
+        $stmt = $db->prepare($sql);
+        $stmt->bind_param("i", $entryId);
+        $stmt->execute();
+        $stmt->bind_result($existingImage);
+        $stmt->fetch();
+        $stmt->close();
+
+        $image = $existingImage;
     }
 
     // Perform the database update
@@ -23,10 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bind_param("ssssi", $accommodation, $location, $bodyText, $image, $entryId);
 
     if ($stmt->execute()) {
-        // Update last_updated_date for the itinerary
-        $updateLastUpdatedQuery = $conn->prepare("UPDATE itinerary SET last_updated_date = NOW() WHERE itinerary_id = ?");
-        $updateLastUpdatedQuery->bind_param("i", $itineraryId);
-        $updateLastUpdatedQuery->execute();
+        echo "Update successful!";
     } else {
         echo "Update failed: " . $stmt->error;
     }

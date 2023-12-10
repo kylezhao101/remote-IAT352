@@ -6,6 +6,9 @@
 * {
     margin: 0;
 }
+html{
+    background-color: #f7f7f76b;
+}
 
 h1,
 h2,
@@ -70,6 +73,8 @@ small {
 /* navbar styling */
 nav {
     padding: 1rem;
+    padding-left: 5rem;
+    padding-right: 5rem;
 }
 
 nav ul {
@@ -87,10 +92,10 @@ nav a {
 
 /* Itinerary card styling */
 .itinerary-cards-container {
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-left: 5rem;
+    padding-right: 5rem;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
     gap: 20px;
 }
 
@@ -175,20 +180,25 @@ nav a {
 }
 
 /* Itinerary Creation form */
+/* Entry edit form*/
 .itinerary-creation-form{
  width:700px;
 }
-.itinerary-creation-form label{
+.itinerary-creation-form label,
+.edit-entry-form label{
     margin-bottom: 8px;
     display: block;
     font-family: 'Inter', sans-serif;
     font-weight: 400;
 }
 
+
 .itinerary-creation-form input[type="text"], 
 .itinerary-creation-form input[type="date"],
 .itinerary-creation-form input[type="number"],
-.itinerary-creation-form select{
+.itinerary-creation-form select,
+.itinerary-entry-form input[type="text"],
+.edit-entry-form input[type="text"]{
       width: 100%;
       padding: 10px;
       margin-bottom: 15px;
@@ -197,7 +207,9 @@ nav a {
       font-size: 16px;
       border-radius: 4px;
 }
-.itinerary-creation-form textarea{
+.itinerary-creation-form textarea, 
+.edit-entry-form textarea,
+.itinerary-entry-form textarea{
     font-family: 'Inter', sans-serif;
     width: 100%;
     height: 150px;
@@ -230,14 +242,12 @@ nav a {
     margin-bottom: 20px;
 }
 .itinerary-header-container{
-    width:70%;
-    margin-left:auto;
-    margin-right:auto;
+    padding-left: 5rem;
+    padding-right: 5rem;
 }
 .itinerary-entries-container{
-    width:70%;
-    margin-left:auto;
-    margin-right:auto;
+    padding-left: 5rem;
+    padding-right: 5rem;
 }
 .itinerary-header img{
     width:100%;
@@ -252,6 +262,7 @@ nav a {
     row-gap: 0px;
     border-top:1px solid black;
     margin-bottom:20px;
+    margin-top:80px;
 }
 .itinerary-entry img{
     width: 50%; 
@@ -267,4 +278,32 @@ nav a {
 }
 .entry-item{
     width:50%;
+}
+
+/* edit entry */
+.edit-entry-btn{
+    background-color: #fdd142;
+    color: #141414;
+    padding: 12px;
+    font-size: 20px;
+    display: block; 
+    border:none;
+    width: 10rem;
+    margin: 0; 
+}
+/* make entry button different */
+.update-entry-btn, .create-entry-btn
+{
+    background-color: #fdd142;
+    color: #141414;
+    padding: 12px;
+    font-size: 20px;
+    display: block; 
+    border:none;
+    width: 10rem;
+    margin: 0; 
+}
+.itinerary-new-entry-container{
+    padding-left: 5rem;
+    padding-right: 5rem;
 }

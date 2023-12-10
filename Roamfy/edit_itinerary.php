@@ -21,7 +21,7 @@ if (isset($_GET['id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Itinerary</title>
-    <!-- Add jQuery -->
+    <link rel="stylesheet" href="styles/main.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
         
@@ -89,36 +89,41 @@ if (isset($_GET['id'])) {
 <body>
 
     <!-- Display the itinerary header -->
-    <?php displayItineraryDetailsHeader($itineraryId); ?>
+    <div class="itinerary-header-container">
+        <?php displayItineraryDetailsHeader($itineraryId); ?>
+    </div>
+
     <!-- Display the entries container with an id -->
-    <div id="itinerary-entries-container" class="itinerary-entries">
-        <h2>Entries</h2>
+    <div id="itinerary-entries-container" class="itinerary-entries-container">
         <!-- Entries will be dynamically added here -->
     </div>
-    <button id="createNewEntryBtn">Create New Entry</button>
 
-    <!-- Display the entry form -->
-    <div class="itinerary-entry-form" style="display: none;">
-        <h2>New Entry</h2>
-        <form method="post" action="includes/process_entry.php" enctype="multipart/form-data">
-            <!-- Hidden field to pass itinerary ID -->
-            <input type="hidden" name="itineraryId" value="<?php echo $itineraryId; ?>">
+    <div class="itinerary-new-entry-container">
+        <button id="createNewEntryBtn" class="edit-entry-btn">Create New Entry</button>
 
-            <label for="accommodation">Accommodation:</label>
-            <input type="text" name="accommodation"><br>
+        <!-- Display the entry form -->
+        <div class="itinerary-entry-form" style="display: none;">
+            <h5>New Entry</h5>
+            <form method="post" action="includes/process_entry.php" enctype="multipart/form-data">
+                <!-- Hidden field to pass itinerary ID -->
+                <input type="hidden" name="itineraryId" value="<?php echo $itineraryId; ?>">
 
-            <label for="location">Location:</label>
-            <?php include 'includes/location_autocomplete.php'; ?>
-            <input type="hidden" id="selected_location" name="selected_location" />
+                <label for="accommodation">Accommodation:</label>
+                <input type="text" name="accommodation"><br>
 
-            <label for="main_img">Image:</label>
-            <input type="file" id="main_img" name="main_img" accept="image/*" /><br>
+                <label for="location">Location:</label>
+                <?php include 'includes/location_autocomplete.php'; ?>
+                <input type="hidden" id="selected_location" name="selected_location" />
 
-            <label for="body_text">Body Text:</label>
-            <textarea name="body_text" rows="10" placeholder="What are your ideas?"></textarea><br>
+                <label for="main_img">Image:</label>
+                <input type="file" id="main_img" name="main_img" accept="image/*" /><br>
 
-            <button type="submit">Add Entry</button>
-        </form>
+                <label for="body_text">Body Text:</label>
+                <textarea name="body_text" rows="10" placeholder="What are your ideas?" required></textarea><br>
+
+                <button type="submit" class="create-entry-btn">Add Entry</button>
+            </form>
+        </div>
     </div>
 </body>
 

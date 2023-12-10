@@ -180,24 +180,35 @@ function displayEntries($itineraryId)
     if ($result->num_rows > 0) {
 ?>
         <div class='itinerary-entries'>
-            <h2>Entries</h2>
-
             <?php
             while ($row = $result->fetch_assoc()) {
                 // Display entry details
             ?>
-                <div>
-                    <p>Day <?= $row['day_of_trip'] ?></p>
-                    <p><strong>Accommodation:</strong> <?= $row['accommodation'] ?></p>
-                    <p><strong>Location:</strong> <?= $row['location'] ?></p>
-                    <p><strong>Body Text:</strong> <?= $row['body_text'] ?></p>
-                    <?php
-                    if (!empty($row["image"])) {
-                        echo "<img src='data:image/jpg;charset=utf8;base64," . base64_encode($row["image"]) . "' alt='Image'>";
-                    } else {
-                        echo "<p><strong>Image:</strong> No image available</p>";
-                    }
+                <div class='itinerary-entry'>
+                    <div class='entry-header'>
+                        <div class='entry-item'>
+                            <h4>Day <?= $row['day_of_trip'] ?></h4>
+                        </div>
+                        <div>
+                            <h6><?= $row['location'] ?></h6>
+                        </div>
+                    </div>
 
+                    <div class='entry-content'>
+                        <?php
+                        if (!empty($row["image"])) {
+                            echo "<img src='data:image/jpg;charset=utf8;base64," . base64_encode($row["image"]) . "' alt='Image'>";
+                        }
+                        ?>
+                        <div class='entry-item'>
+                            <p class='entry-body'><?= $row['body_text'] ?></p><br>
+                            <p><strong>Accommodation:</strong> <?= $row['accommodation'] ?></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <?php
                     if (isset($_SESSION["username"]) && $_SESSION['member_id'] == $row['member_id']) {
                         // Move the "Edit Entry" button here
                     ?>
@@ -214,8 +225,10 @@ function displayEntries($itineraryId)
                                 <!-- location autocomplete needs to be implemented -->
                                 <label for='location'>Location:</label>
                                 <input type='text' id='selected_location' name='selected_location' value='<?= $row['location'] ?>' />
+
                                 <label for='main_img'>Image:</label>
                                 <input type='file' id='main_img' name='main_img' accept='image/*' /><br>
+                                
                                 <label for='body_text'>Body Text:</label>
                                 <textarea name='body_text' rows='10' placeholder='What are your ideas?'><?= $row['body_text'] ?></textarea><br>
                                 <button class='update-entry-btn' data-entry-id='<?= $row['itinerary_entry_id'] ?>'>Update Entry</button>
