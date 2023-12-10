@@ -40,6 +40,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     // Execute the statement
     if ($stmt->execute()) {
+        // Update last_updated_date for the itinerary
+        $updateLastUpdatedQuery = $conn->prepare("UPDATE itinerary SET last_updated_date = NOW() WHERE itinerary_id = ?");
+        $updateLastUpdatedQuery->bind_param("i", $itineraryId);
+        $updateLastUpdatedQuery->execute();
+
         exit();
     } else {
         echo "Error: " . $stmt->error;

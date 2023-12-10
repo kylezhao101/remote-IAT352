@@ -23,7 +23,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bind_param("ssssi", $accommodation, $location, $bodyText, $image, $entryId);
 
     if ($stmt->execute()) {
-        echo "Update successful!";
+        // Update last_updated_date for the itinerary
+        $updateLastUpdatedQuery = $conn->prepare("UPDATE itinerary SET last_updated_date = NOW() WHERE itinerary_id = ?");
+        $updateLastUpdatedQuery->bind_param("i", $itineraryId);
+        $updateLastUpdatedQuery->execute();
     } else {
         echo "Update failed: " . $stmt->error;
     }

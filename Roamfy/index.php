@@ -15,12 +15,13 @@ $db = connectToDatabase();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Roamfy</title>
+    <link rel="stylesheet" href="styles/main.css">
 </head>
 
 <body>
-
-    <?php displayItineraryCards($db); ?>
-
+    <div class="itinerary-cards-container">
+        <?php displayItineraryCards($db); ?>
+    </div>
 </body>
 
 </html>
