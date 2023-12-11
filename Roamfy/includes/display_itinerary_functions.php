@@ -65,6 +65,7 @@ function displayItineraryCards($db, $statusFilter = null)
             if ($row["forked_from"] !== null) {
                 echo "<p><strong>Forked From:</strong> " . $row["forked_from"] . "</p>";
             }
+            echo "<br>";
             // Add link to edit_itinerary.php if user is logged in and owns the itinerary
             if (isset($_SESSION['username']) && $_SESSION['member_id'] == $row['member_id']) {
                 echo "<p><a href='edit_itinerary.php?id=" . $row["itinerary_id"] . "'>Edit Your Itinerary</a></p>";
@@ -151,9 +152,9 @@ function displayItineraryDetailsHeader($itineraryId)
 
                 <p><small>Last updated <?= $row["last_updated_date"] ?></small></p>
             </div>
-                <?php if (!empty($row["main_img"])) : ?>
-                    <img src='data:image/jpg;charset=utf8;base64,<?= base64_encode($row["main_img"]) ?>' alt='Main Image'>
-                <?php endif; ?>
+            <?php if (!empty($row["main_img"])) : ?>
+                <img src='data:image/jpg;charset=utf8;base64,<?= base64_encode($row["main_img"]) ?>' alt='Main Image'>
+            <?php endif; ?>
         </div>
     <?php
     } else {
@@ -165,6 +166,38 @@ function displayItineraryDetailsHeader($itineraryId)
     $result->free_result();
 }
 
+function getNumberOfEntries($itineraryId)
+{
+    $db = connectToDatabase();
+
+    // Prepare the query to get the count of entries
+    $sql = "SELECT COUNT(*) AS entry_count FROM itinerary_entry WHERE itinerary_id = ?";
+
+    $stmt = $db->prepare($sql);
+
+    if (!$stmt) {
+        die("Error preparing statement: " . $db->error);
+    }
+
+    // Bind parameters
+    $stmt->bind_param("i", $itineraryId);
+
+    // Execute the query
+    $stmt->execute();
+
+    // Get the result set
+    $result = $stmt->get_result();
+
+    // Fetch the entry count
+    $row = $result->fetch_assoc();
+    $entryCount = $row['entry_count'];
+
+    // Close statement and connection
+    $stmt->close();
+    $db->close();
+
+    return $entryCount;
+}
 
 // Function to display entries in edit mode ----------------------------------------
 function displayEntries($itineraryId)
@@ -228,16 +261,30 @@ function displayEntries($itineraryId)
                             <form method='post' action='includes/process_entry_update.php' enctype='multipart/form-data' data-entry-id='<?= $row['itinerary_entry_id'] ?>'>
                                 <!-- Hidden field to pass itinerary entry ID -->
                                 <input type='hidden' name='itinerary_entry_id' value='<?= $row['itinerary_entry_id'] ?>'>
+                                <label for="move_to_day">Move to day (Does not re-order other entries):</label>
 
+                                <select name="move_to_day" id="move_to_day">
+                                    <option value="0" selected>Don't Change</option>
+
+                                    <?php
+                                    $totalEntries = getNumberOfEntries($itineraryId);
+
+                                    // Populate dropdown options
+                                    for ($day = 1; $day <= $totalEntries; $day++) {
+                                        echo "<option value='$day'>$day</option>";
+                                    }
+                                    ?>
+                                </select>
+                                
                                 <label for='accommodation'>Accommodation:</label>
                                 <input type='text' name='accommodation' value='<?= $row['accommodation'] ?>'><br>
                                 <!-- location autocomplete needs to be implemented -->
                                 <label for='location'>Location:</label>
                                 <input type='text' id='selected_location' name='selected_location' value='<?= $row['location'] ?>' />
 
-                                <label for='main_img'>Image:</label>
+                                <label for='main_img'>New Image:</label>
                                 <input type='file' id='main_img' name='main_img' accept='image/*' /><br>
-
+                                <br>
                                 <label for='body_text'>Body Text:</label>
                                 <textarea name='body_text' rows='10' placeholder='What are your ideas?'><?= $row['body_text'] ?></textarea><br>
                                 <button class='update-entry-btn' data-entry-id='<?= $row['itinerary_entry_id'] ?>'>Update Entry</button>

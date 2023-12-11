@@ -27,6 +27,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $image = $existingImage;
     }
 
+    $moveToDay = $_POST['move_to_day'];
+    // Handle "move to day" functionality
+    if ($moveToDay !== '0') {
+        // Update the day_of_trip column
+        $sqlUpdateDay = "UPDATE itinerary_entry SET day_of_trip=? WHERE itinerary_entry_id=?";
+        $stmtUpdateDay = $db->prepare($sqlUpdateDay);
+        $stmtUpdateDay->bind_param("ii", $moveToDay, $entryId);
+
+        if ($stmtUpdateDay->execute()) {
+            echo "Update day_of_trip successful!";
+        } else {
+            echo "Update day_of_trip failed: " . $stmtUpdateDay->error;
+        }
+
+        $stmtUpdateDay->close();
+    }
+
     // Perform the database update
     $sql = "UPDATE itinerary_entry SET accommodation=?, location=?, body_text=?, image=? WHERE itinerary_entry_id=?";
     $stmt = $db->prepare($sql);
@@ -46,4 +63,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // Close the database connection
 $db->close();
-?>

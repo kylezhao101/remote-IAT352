@@ -87,9 +87,9 @@ if (isset($_GET['id'])) {
 </head>
 
 <body>
-
     <!-- Display the itinerary header -->
     <div class="itinerary-header-container">
+    <h5>Editing...</h5>
         <?php displayItineraryDetailsHeader($itineraryId); ?>
     </div>
 

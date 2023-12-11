@@ -371,8 +371,8 @@ nav a {
     padding-right: 10%;
 }
 .itinerary-header img{
-    
-    height:auto;
+    width: 50%;
+    height:500px;
     object-fit: cover;
 }
 .itinerary-header-content{
@@ -420,6 +420,23 @@ nav a {
 }
 .entry-item{
     width:50%;
+}
+
+#move_to_day {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+#move_to_day::after {
+    content: '\25BC';
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+}
+#move_to_day option {
+    padding: 8px;
 }
 
 /* edit entry */
