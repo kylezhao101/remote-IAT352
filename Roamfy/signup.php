@@ -2,7 +2,7 @@
 session_start();
 include 'includes/db_connection.php';
 include 'includes/https_redirect.php';
-
+enforceHttps();
 function registerUser($db, $firstName, $lastName, $email, $username, $password, $passwordConfirm)
 {
     // Check if passwords match

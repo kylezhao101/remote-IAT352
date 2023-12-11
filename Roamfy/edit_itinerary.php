@@ -1,9 +1,9 @@
 <?php
 session_start();
 include 'includes/db_connection.php';
-include 'includes/https_redirect.php';
-include 'layouts/navbar.php';
 include 'includes/display_itinerary_functions.php';
+include 'includes/https_redirect.php';
+enforceHttp();
 
 // Check if the 'id' parameter is set in the URL
 if (isset($_GET['id'])) {
@@ -87,6 +87,7 @@ if (isset($_GET['id'])) {
 </head>
 
 <body>
+    <?php include 'layouts/navbar.php'; ?>
     <!-- Display the itinerary header -->
     <div class="itinerary-header-container">
     <h5>Editing...</h5>

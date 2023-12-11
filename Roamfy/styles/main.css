@@ -465,6 +465,15 @@ nav a {
     width: 10rem;
     margin: 0; 
 }
+.delete-entry-btn
+{
+    color: #fd4242;
+    padding: 10px;
+    font-size: 14px;
+    display: inline-block; 
+    border:none;
+    margin-top: 5vh; 
+}
 .create-entry-btn{
     padding-left:auto;
     padding-right:auto;

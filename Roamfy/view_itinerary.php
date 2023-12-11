@@ -1,9 +1,10 @@
 <?php
 session_start();
 include 'includes/db_connection.php';
-include 'includes/https_redirect.php';
 include 'includes/display_itinerary_functions.php';
 include 'includes/comment_functions.php';
+include 'includes/https_redirect.php';
+enforceHttp();
 
 // Check if the 'id' parameter is set in the URL
 if (isset($_GET['id'])) {

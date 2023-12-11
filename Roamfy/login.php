@@ -2,6 +2,7 @@
 session_start();
 include 'includes/db_connection.php';
 include 'includes/https_redirect.php';
+enforceHttps();
 $db = connectToDatabase();
 
 // Login authentication

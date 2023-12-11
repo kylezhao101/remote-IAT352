@@ -275,7 +275,7 @@ function displayEntries($itineraryId)
                                     }
                                     ?>
                                 </select>
-                                
+
                                 <label for='accommodation'>Accommodation:</label>
                                 <input type='text' name='accommodation' value='<?= $row['accommodation'] ?>'><br>
                                 <!-- location autocomplete needs to be implemented -->
@@ -288,6 +288,9 @@ function displayEntries($itineraryId)
                                 <label for='body_text'>Body Text:</label>
                                 <textarea name='body_text' rows='10' placeholder='What are your ideas?'><?= $row['body_text'] ?></textarea><br>
                                 <button class='update-entry-btn' data-entry-id='<?= $row['itinerary_entry_id'] ?>'>Update Entry</button>
+
+                                <input type='hidden' name='delete_entry_id' value='<?= $row['itinerary_entry_id'] ?>'>
+                                <button type='submit' class='delete-entry-btn'>Delete Entry</button>
                             </form>
                         </div>
                     <?php
@@ -307,6 +310,8 @@ function displayEntries($itineraryId)
                         var buttonText = $("#editEntry" + entryId).text();
                         var newButtonText = buttonText === "Edit Entry" ? "Cancel" : "Edit Entry";
                         $("#editEntry" + entryId).text(newButtonText);
+
+                        bindDeleteButtonEvent();
                     }
                     //hide form initially
                     $(".edit-entry-form").hide();
@@ -315,6 +320,8 @@ function displayEntries($itineraryId)
                         var entryId = $(this).data('entry-id');
                         toggleForm(entryId);
                     });
+
+                    bindDeleteButtonEvent();
 
                     // Add AJAX submission for the form
                     $("form").submit(function(event) {
@@ -342,6 +349,17 @@ function displayEntries($itineraryId)
                             },
                         });
                     });
+
+                    function bindDeleteButtonEvent() {
+                        $(".delete-entry-btn").off("click").on("click", function() {
+                            var entryId = $(this).data('entry-id');
+                            var confirmation = confirm("Are you sure you want to delete this entry?");
+                            if (confirmation) {
+                                console.log("Delete Entry ID: " + entryId);
+                            }
+                        });
+                    }
+
                     // Function to load entries dynamically
                     function loadEntries() {
                         $.ajax({

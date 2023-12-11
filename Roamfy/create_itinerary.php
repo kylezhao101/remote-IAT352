@@ -2,7 +2,8 @@
 session_start();
 include 'includes/db_connection.php';
 $conn = connectToDatabase();
-
+include 'includes/https_redirect.php';
+enforceHttp();
 
 
 if (empty($_SESSION['username'])) {
