@@ -25,7 +25,7 @@ function displayComments($itineraryId)
                 ?>
                 <div class='comment'>
                     <p><strong><?php echo $row['username']; ?>:</strong> <?php echo $row['body_text']; ?></p>
-                    <p><em>Posted: <?php echo $row['date']; ?></em></p>
+                    <p><small>Posted: <?php echo $row['date']; ?></small></p>
                 </div>
                 <?php
             }

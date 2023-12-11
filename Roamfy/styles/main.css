@@ -77,7 +77,7 @@ nav {
     left: 0;
     right: 0;
     backdrop-filter: blur(10px); /* Apply backdrop blur for glassmorphism effect */
-    background-color: rgba(255, 255, 255, 0.5); /* Set a semi-transparent background color */
+    background-color: #f7f7f76b; /* Set a semi-transparent background color */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -284,6 +284,17 @@ nav a {
     font-size: 16px;
     resize: none;
 }
+.comment-form textarea{
+    font-family: 'Inter', sans-serif;
+    width: 80%;
+    height: 150px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    resize: none;
+}
 .itinerary-creation-form .form-group{
     display:flex;
     column-gap: 20px;
@@ -317,6 +328,21 @@ nav a {
     width:100%;
     height:400px;
     object-fit: cover;
+}
+.comment-section{
+    border-top:1px solid black;
+    display:flex;
+    column-gap: 20px;
+    margin-top:80px;
+    padding-left: 10%;
+    padding-right: 10%;
+    margin-bottom:20vh;
+}
+.itinerary-comments-container{
+    padding-top:40px;
+}
+.comment{
+    margin-bottom:20px;
 }
 /* entries */
 .entry-header{

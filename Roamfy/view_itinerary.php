@@ -82,29 +82,33 @@ if (isset($_GET['id'])) {
     </div>
 
 
-    </div>
-    <?php
-    if (isset($_SESSION['username'])) {
-        // User is logged in, display the comment form
-    ?>
-        <form action='includes/process_comment.php' method='post' class='comment-form'>
-            <!-- Hidden field to pass itinerary ID -->
-            <input type='hidden' name='itineraryId' value='<?php echo $itineraryId; ?>'>
-            <textarea name='comment_text' rows='4' cols='50' placeholder='Write your comment...' required></textarea><br>
-            <input type='submit' value='Post Comment'>
-        </form>
+    <div class="comment-section">
+        <div class="entry-item">
+            <h4>Comments</h4>
+            
+            <?php
+            if (isset($_SESSION['username'])) {
+                // User is logged in, display the comment form
+            ?>
+                <form action='includes/process_comment.php' method='post' class='comment-form'>
+                    <!-- Hidden field to pass itinerary ID -->
+                    <input type='hidden' name='itineraryId' value='<?php echo $itineraryId; ?>'>
+                    <textarea name='comment_text' rows='4' cols='50' placeholder='Write your comment...' required></textarea><br>
+                    <input class="edit-entry-btn" type='submit' value='Post Comment'>
+                </form>
 
-    <?php
-    } else {
-        // User is not logged in, display a message or redirect to the login page
-    ?>
-        <p>Please log in to leave a comment.</p>
-    <?php
-    } ?>
-    </div>
-
-    <div id="itinerary-comments-container" class="itinerary-comments-container">
-        <!-- Comments will be dynamically added here -->
+            <?php
+            } else {
+                // User is not logged in, display a message or redirect to the login page
+            ?>
+                <p>Please <a href="login.php">log in</a> to leave a comment.</p>
+            <?php
+            } ?>
+        </div>
+    
+        <div id="itinerary-comments-container" class="itinerary-comments-container">
+            <!-- Comments will be dynamically added here -->
+        </div>
     </div>
 
 </body>
