@@ -2,12 +2,17 @@
 
 // Function to display Itinerary cards ----------------------------------------
 // TODO: implement filtering and search
-function displayItineraryCards($db)
+function displayItineraryCards($db, $statusFilter = null)
 {
     // Prepare the SELECT query with a JOIN statement
     $sql = "SELECT i.*, m.username 
             FROM itinerary i
             LEFT JOIN member m ON i.member_id = m.member_id";
+
+    if ($statusFilter) {
+        // Add a WHERE clause to filter by status
+        $sql .= " WHERE i.status = '$statusFilter'";
+    }
 
     $result = $db->query($sql);
 
@@ -69,7 +74,7 @@ function displayItineraryCards($db)
             echo "</div>";
         }
     } else {
-        echo "No itineraries found.";
+        echo "<p>No itineraries found.</p>";
     }
 
     $result->free_result();

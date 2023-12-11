@@ -72,15 +72,30 @@ small {
 
 /* navbar styling */
 nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    backdrop-filter: blur(10px); /* Apply backdrop blur for glassmorphism effect */
+    background-color: rgba(255, 255, 255, 0.5); /* Set a semi-transparent background color */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 1rem;
     padding-left: 5rem;
     padding-right: 5rem;
+    transition: background-color 0.3s, backdrop-filter 0.3s; /* Add transition for smooth effect */
+}
+
+.logo {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
 }
 
 nav ul {
     list-style-type: none;
     display: flex;
-    column-gap: 3rem;
+    gap: 3rem;
     padding: 0;
 }
 
@@ -90,6 +105,54 @@ nav a {
     font-family: 'Inter', sans-serif;
 }
 
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #ffdc67; 
+    border:solid 1px black;
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #e0e0e0; 
+}
+
+/* search and filter params */
+.search-container{
+    padding-left: 5rem;
+    padding-right: 5rem;
+    margin-top:10vh;
+    margin-bottom:80px;
+}
+.status-filter input[type="radio"] {
+    display: none;
+}
+.status-filter label {
+    margin-right: 10px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    color:#868686;
+    cursor: pointer;
+}
+.status-filter input[type="radio"]:checked + label{
+    color:black;
+}
+.status-filter input[type="submit"]{
+    background-color: #fdd142;
+    border:none;
+    color: #141414;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 16px;
+    margin: 0; 
+}
+.status-filter label:hover {
+    color: black; 
+}
+
 /* Itinerary card styling */
 .itinerary-cards-container {
     padding-left: 5rem;
@@ -97,6 +160,7 @@ nav a {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
     gap: 20px;
+    margin-bottom:80px;
 }
 
 .itinerary-card {
