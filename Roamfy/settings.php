@@ -107,16 +107,30 @@ function handleChangePasswordForm()
         <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars(session_id()); ?>">
 
         <label for="current_password">Current Password:</label>
-        <input type="password" name="current_password" placeholder="Enter your current password" required>
+        <input id="current-password-input" type="password" name="current_password" placeholder="Enter your current password" required>
+        <input type="checkbox" onclick="toggleShowPassword('current-password-input')">Show Password
 
         <label for="new_password">New Password:</label>
-        <input type="password" name="new_password" placeholder="Enter your new password" required>
+        <input id="new-password-input" type="password" name="new_password" placeholder="Enter your new password" required>
+        <input type="checkbox" onclick="toggleShowPassword('new-password-input')">Show Password
 
         <label for="confirm_password">Confirm New Password:</label>
-        <input type="password" name="confirm_password" placeholder="Confirm your new password" required>
+        <input id="confirm-password-input" type="password" name="confirm_password" placeholder="Confirm your new password" required>
+        <input type="checkbox" onclick="toggleShowPassword('confirm-password-input')">Show Password
+
 
         <input type="submit" value="Change Password">
     </form>
+    <script>
+        function toggleShowPassword(inputId) {
+            var x = document.getElementById(inputId);
+            if (x.type === "password") {
+                x.type = "text";
+            } else {
+                x.type = "password";
+            }
+        }
+    </script>
 </body>
 
 </html>
