@@ -107,7 +107,7 @@ function displayItineraryDetailsHeader($itineraryId)
         }
         echo "<div class='itinerary-card-content'>";
         // Make the trip_name an anchor linking to view_itinerary.php
-        echo "<h4>" . $row["trip_name"] . "</h4>";
+        echo "<h4><a href='view_itinerary.php?id=" . $row["itinerary_id"] . "' class='itinerary-link'>" . $row["trip_name"] . "</a></h4>";
 
         echo "<h5>" . $row["trip_location"] . "</h5>";
 
@@ -187,7 +187,8 @@ function displayEntries($itineraryId)
                 <div class='itinerary-entry'>
                     <div class='entry-header'>
                         <div class='entry-item'>
-                            <h4>Day <?= $row['day_of_trip'] ?></h4>
+                            <h4>Day 0<?= $row['day_of_trip'] ?></h4>
+                            <div class='yellow-rectangle'></div>
                         </div>
                         <div>
                             <h6><?= $row['location'] ?></h6>
@@ -339,7 +340,8 @@ function displayEntriesNoEdit($itineraryId)
                 <div class='itinerary-entry'>
                     <div class='entry-header'>
                         <div class='entry-item'>
-                            <h4>Day <?= $row['day_of_trip'] ?></h4>
+                            <h4>Day 0<?= $row['day_of_trip'] ?></h4>
+                            <div class='yellow-rectangle'></div>
                         </div>
                         <div>
                             <h6><?= $row['location'] ?></h6>

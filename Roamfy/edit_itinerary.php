@@ -97,9 +97,10 @@ if (isset($_GET['id'])) {
     <div id="itinerary-entries-container" class="itinerary-entries-container">
         <!-- Entries will be dynamically added here -->
     </div>
-
     <div class="itinerary-new-entry-container">
-        <button id="createNewEntryBtn" class="edit-entry-btn">Create New Entry</button>
+        <h4>Add Your next entry</h4>
+        <div class='yellow-rectangle'></div>
+        <button id="createNewEntryBtn" class="create-entry-btn">Create New Entry</button>
 
         <!-- Display the entry form -->
         <div class="itinerary-entry-form" style="display: none;">

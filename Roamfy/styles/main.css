@@ -139,7 +139,6 @@ nav a {
 .itinerary-card-details {
     margin-top: 15px;
     margin-bottom: 20px;
-    display: inline-block;
 }
 
 /* Login and Sign up form */
@@ -185,7 +184,8 @@ nav a {
  width:700px;
 }
 .itinerary-creation-form label,
-.edit-entry-form label{
+.edit-entry-form label,
+.itinerary-entry-form label{
     margin-bottom: 8px;
     display: block;
     font-family: 'Inter', sans-serif;
@@ -242,12 +242,12 @@ nav a {
     margin-bottom: 20px;
 }
 .itinerary-header-container{
-    padding-left: 5rem;
-    padding-right: 5rem;
+    padding-left: 25%;
+    padding-right: 25%;
 }
 .itinerary-entries-container{
-    padding-left: 5rem;
-    padding-right: 5rem;
+    padding-left: 10%;
+    padding-right: 10%;
 }
 .itinerary-header img{
     width:100%;
@@ -263,6 +263,9 @@ nav a {
     border-top:1px solid black;
     margin-bottom:20px;
     margin-top:80px;
+}
+.itinerary-header p{
+    width:80%;
 }
 .itinerary-entry img{
     width: 50%; 
@@ -284,26 +287,52 @@ nav a {
 .edit-entry-btn{
     background-color: #fdd142;
     color: #141414;
-    padding: 12px;
-    font-size: 20px;
+    padding: 10px;
+    font-size: 18px;
     display: block; 
     border:none;
     width: 10rem;
     margin: 0; 
 }
+.edit-entry-form{
+    width:50%;
+}
 /* make entry button different */
-.update-entry-btn, .create-entry-btn
+.update-entry-btn
 {
     background-color: #fdd142;
     color: #141414;
-    padding: 12px;
-    font-size: 20px;
+    padding: 10px;
+    font-size: 18px;
     display: block; 
     border:none;
     width: 10rem;
     margin: 0; 
 }
+.create-entry-btn{
+    padding-left:auto;
+    padding-right:auto;
+    background:none;
+    border:1px solid black;
+    color:  black;
+    padding: 12px;
+    font-size: 20px;
+    display: block; 
+    margin-top: 20px; 
+}
 .itinerary-new-entry-container{
-    padding-left: 5rem;
-    padding-right: 5rem;
+    border-top:1px solid black;
+    margin-top:40px;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+.itinerary-entry-form{
+    width:50%;
+}
+
+.yellow-rectangle {
+    width: 20%; /* Set to match the width of the entry item */
+    height: 5px; /* Adjust the height as needed */
+    background-color: #fdd142;
+    margin-top: 5px; /* Adjust the margin-top as needed for spacing */
 }
