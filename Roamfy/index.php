@@ -1,7 +1,6 @@
 <?php
 session_start();
 include 'includes/db_connection.php';
-include 'includes/https_redirect.php';
 include 'includes/display_itinerary_functions.php';
 
 $db = connectToDatabase();

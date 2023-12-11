@@ -10,6 +10,7 @@
                 // User is logged in, show logout link
                 echo '<li><a href="create_itinerary.php">Create Itinerary</a></li>';
                 echo '<li><a href="logout.php">Logout</a></li>';
+                echo '<li><a href="settings.php">Profile Settings</a></li>';
             } else {
                 // User is not logged in, show login link
                 echo '<li><a href="create_itinerary.php">Create Itinerary</a></li>';
