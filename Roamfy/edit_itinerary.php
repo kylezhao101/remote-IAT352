@@ -27,19 +27,9 @@ if (isset($_GET['id'])) {
         
         $(document).ready(function() {
             
-            //hide form initially
-            $(".itinerary-entry-form").hide();
-
-            //toggle and change button text on click
-            $("#createNewEntryBtn").click(function() {
-                $(".itinerary-entry-form").toggle();
-                var buttonText = $("#createNewEntryBtn").text();
-                var newButtonText = buttonText === "Create New Entry" ? "Cancel" : "Create New Entry";
-                $("#createNewEntryBtn").text(newButtonText);
-            });
-
             // Add AJAX submission for the form
             $("form").submit(function(event) {
+                var form = this;
                 // Prevent the default form submission
                 event.preventDefault();
 
@@ -54,10 +44,10 @@ if (isset($_GET['id'])) {
                     contentType: false,
                     processData: false,
                     success: function() {
+                        form.reset();
+
                         // On successful submission, reload the entries
                         loadEntries();
-                        // Hide the entry form again
-                        toggleEntryForm();
                     },
                     error: function(xhr, status, error) {
                         console.error("Error submitting form: " + error);
@@ -101,10 +91,9 @@ if (isset($_GET['id'])) {
     <div class="itinerary-new-entry-container">
         <h4>Add Your next entry</h4>
         <div class='yellow-rectangle'></div>
-        <button id="createNewEntryBtn" class="create-entry-btn">Create New Entry</button>
 
         <!-- Display the entry form -->
-        <div class="itinerary-entry-form" style="display: none;">
+        <div class="itinerary-entry-form">
             <h5>New Entry</h5>
             <form method="post" action="includes/process_entry.php" enctype="multipart/form-data">
                 <!-- Hidden field to pass itinerary ID -->
