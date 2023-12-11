@@ -105,55 +105,57 @@ function displayItineraryDetailsHeader($itineraryId)
     if ($result->num_rows > 0) {
         // Output data of the specified itinerary
         $row = $result->fetch_assoc();
+?>
 
-        echo "<div class='itinerary-header'>";
-        if (!empty($row["main_img"])) {
-            echo "<img src='data:image/jpg;charset=utf8;base64," . base64_encode($row["main_img"]) . "' alt='Main Image'>";
-        }
-        echo "<div class='itinerary-card-content'>";
-        // Make the trip_name an anchor linking to view_itinerary.php
-        echo "<h4><a href='view_itinerary.php?id=" . $row["itinerary_id"] . "' class='itinerary-link'>" . $row["trip_name"] . "</a></h4>";
+        <h1><?= $row["trip_name"] ?></h1>
+        <div class="yellow-rectangle"></div>
+        <div class='itinerary-header'>
 
-        echo "<h5>" . $row["trip_location"] . "</h5>";
+            <div class='itinerary-header-content'>
+                <h5><?= $row["trip_location"] ?></h5>
 
-        echo "<div class='itinerary-card-details'>";
-        echo "<p><strong>Status:</strong> " . $row["status"] . "<strong> | Duration:</strong> " . $row["duration"] . " days <strong>| Group Size:</strong> " . $row["group_size"] . "</p>";
-        echo "</div>";
+                <div class='itinerary-card-details'>
+                    <p><strong>Status:</strong> <?= $row["status"] ?> <strong>| Duration:</strong> <?= $row["duration"] ?> days <strong>| Group Size:</strong> <?= $row["group_size"] ?></p>
+                </div>
 
-        echo "<p>" . $row["trip_description"] . "</p><br>";
+                <p><?= $row["trip_description"] ?></p><br>
 
-        if (!empty($row["start_date"])) {
-            echo "<p>From " . $row["start_date"] . " to " . $row["end_date"] . "</p>";
-        }
-        // Display the member_id's username
-        echo "<p><strong>Created by:</strong> " . $row["username"] . "</p><br>";
+                <?php if (!empty($row["start_date"])) : ?>
+                    <p>From <?= $row["start_date"] ?> to <?= $row["end_date"] ?></p>
+                <?php endif; ?>
 
-        // Check if number_likes is not null and display it
-        if ($row["number_likes"] !== null) {
-            echo "<p><strong>Number of Likes:</strong> " . $row["number_likes"] . "</p>";
-        } else {
-            echo "<p>No likes yet, be the first to like!</p>";
-        }
+                <p><strong>Created by:</strong> <?= $row["username"] ?></p><br>
 
-        // Like button
-        echo "<form action='add_to_watchlist.php' method='post'>";
-        echo "<input type='hidden' name='itinerary_id' value='" . $row["itinerary_id"] . "'>";
-        echo "<button type='submit'>";
-        echo "<span>&#x2665;</span> Like";
-        echo "</button>";
-        echo "</form>";
+                <?php if ($row["number_likes"] !== null) : ?>
+                    <p><strong>Number of Likes:</strong> <?= $row["number_likes"] ?></p>
+                <?php else : ?>
+                    <p>No likes yet, be the first to like!</p>
+                <?php endif; ?>
 
-        // Check if forked_from is not null and display it
-        if ($row["forked_from"] !== null) {
-            echo "<p><strong>Forked From:</strong> " . $row["forked_from"] . "</p>";
-        }
-        // Add link to edit_itinerary.php if user is logged in and owns the itinerary
-        if (isset($_SESSION['username']) && $_SESSION['member_id'] == $row['member_id']) {
-            echo "<p><a href='edit_itinerary.php?id=" . $row["itinerary_id"] . "'>Edit Your Itinerary</a></p>";
-        }
-        echo "<p><small>Last updated " . $row["last_updated_date"] . "</small></p>";
-        echo "</div>";
-        echo "</div>";
+                <form action='add_to_watchlist.php' method='post'>
+                    <input type='hidden' name='itinerary_id' value='<?= $row["itinerary_id"] ?>'>
+                    <button type='submit'>
+                        <span>&#x2665;</span> Like
+                    </button>
+                </form>
+
+                <?php if ($row["forked_from"] !== null) : ?>
+                    <p><strong>Forked From:</strong> <?= $row["forked_from"] ?></p>
+                <?php endif; ?>
+
+                <br>
+
+                <?php if (isset($_SESSION['username']) && $_SESSION['member_id'] == $row['member_id']) : ?>
+                    <p><a href='edit_itinerary.php?id=<?= $row["itinerary_id"] ?>'>Edit Your Itinerary</a></p>
+                <?php endif; ?>
+
+                <p><small>Last updated <?= $row["last_updated_date"] ?></small></p>
+            </div>
+                <?php if (!empty($row["main_img"])) : ?>
+                    <img src='data:image/jpg;charset=utf8;base64,<?= base64_encode($row["main_img"]) ?>' alt='Main Image'>
+                <?php endif; ?>
+        </div>
+    <?php
     } else {
         echo "No itinerary found for the specified ID.";
     }
@@ -162,6 +164,7 @@ function displayItineraryDetailsHeader($itineraryId)
     $stmt->close();
     $result->free_result();
 }
+
 
 // Function to display entries in edit mode ----------------------------------------
 function displayEntries($itineraryId)
@@ -183,7 +186,7 @@ function displayEntries($itineraryId)
 
     // Check if there are rows in the result set
     if ($result->num_rows > 0) {
-?>
+    ?>
         <div class='itinerary-entries'>
             <?php
             while ($row = $result->fetch_assoc()) {
@@ -234,7 +237,7 @@ function displayEntries($itineraryId)
 
                                 <label for='main_img'>Image:</label>
                                 <input type='file' id='main_img' name='main_img' accept='image/*' /><br>
-                                
+
                                 <label for='body_text'>Body Text:</label>
                                 <textarea name='body_text' rows='10' placeholder='What are your ideas?'><?= $row['body_text'] ?></textarea><br>
                                 <button class='update-entry-btn' data-entry-id='<?= $row['itinerary_entry_id'] ?>'>Update Entry</button>

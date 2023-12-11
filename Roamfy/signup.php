@@ -96,32 +96,33 @@ handleRegistrationForm();
 
 <body>
     <?php include 'layouts/navbar.php'; ?>
-    <h3>Sign Up</h3>
-    <form action="signup.php" method="post" class="auth-form">
-        <!-- Add CSRF token for security -->
-        <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars(session_id()); ?>">
+    <div class="auth-content">
+        <h3>Sign Up</h3>
+        <form action="signup.php" method="post" class="auth-form">
+            <!-- Add CSRF token for security -->
+            <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars(session_id()); ?>">
 
-        <label for="first_name">First Name:</label>
-        <input type="text" name="first_name" placeholder="Enter your first name" required>
+            <label for="first_name">First Name:</label>
+            <input type="text" name="first_name" placeholder="Enter your first name" required>
 
-        <label for="last_name">Last Name:</label>
-        <input type="text" name="last_name" placeholder="Enter your last name" required>
+            <label for="last_name">Last Name:</label>
+            <input type="text" name="last_name" placeholder="Enter your last name" required>
 
-        <label for="email">Email:</label>
-        <input type="email" name="email" placeholder="e.g. 123@email.com" required>
+            <label for="email">Email:</label>
+            <input type="email" name="email" placeholder="e.g. 123@email.com" required>
 
-        <label for="username">Username:</label>
-        <input type="text" name="username" placeholder="Choose a username" required>
+            <label for="username">Username:</label>
+            <input type="text" name="username" placeholder="Choose a username" required>
 
-        <label for="password">Password:</label>
-        <input type="password" name="password" placeholder="Enter your password" required>
+            <label for="password">Password:</label>
+            <input type="password" name="password" placeholder="Enter your password" required>
 
-        <label for="password_confirm">Confirm Password:</label>
-        <input type="password" name="password_confirm" placeholder="Confirm your password" required>
+            <label for="password_confirm">Confirm Password:</label>
+            <input type="password" name="password_confirm" placeholder="Confirm your password" required>
 
-        <input type="submit" value="Sign Up">
-    </form>
-
+            <input type="submit" value="Sign Up">
+        </form>
+</div>
 </body>
 
 </html>

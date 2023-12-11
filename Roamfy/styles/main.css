@@ -120,6 +120,38 @@ nav a {
     background-color: #e0e0e0; 
 }
 
+/* settings checkbox */
+.settings-container{
+    margin-top:10vh;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+.checkbox-container{
+    display:flex;
+    flex-direction: row-reverse;
+}
+.checkbox-label {
+    display: inline-block;
+    margin-left: 10px;
+}
+.checkbox-input {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #333;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+}
+.checkbox-input:checked {
+    background-color: #333;
+    border-color: #333;
+}
+.checkbox-label.hide-label {
+    display: none;
+}
 /* search and filter params */
 .search-container{
     padding-left: 5rem;
@@ -127,6 +159,7 @@ nav a {
     margin-top:10vh;
     margin-bottom:80px;
 }
+/* radio */
 .status-filter input[type="radio"] {
     display: none;
 }
@@ -206,6 +239,8 @@ nav a {
 }
 
 /* Login and Sign up form */
+/* To be changed */
+
 .auth-form {
     max-width: 350px;
     margin: 0;
@@ -216,6 +251,11 @@ nav a {
     display: block;
     font-family: 'Inter', sans-serif;
     font-weight: 400;
+}
+.auth-content{
+    margin-top:10vh;
+    padding-left: 10%;
+    padding-right: 10%;
 }
 
 .auth-form input[type="text"],
@@ -317,17 +357,26 @@ nav a {
     margin-bottom: 20px;
 }
 .itinerary-header-container{
-    padding-left: 25%;
-    padding-right: 25%;
+    margin-top:10vh;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+.itinerary-header{
+    display:flex;
+    flex-direction: row;
+    column-gap: 20px;
 }
 .itinerary-entries-container{
     padding-left: 10%;
     padding-right: 10%;
 }
 .itinerary-header img{
-    width:100%;
-    height:400px;
+    
+    height:auto;
     object-fit: cover;
+}
+.itinerary-header-content{
+    width:50%;
 }
 .comment-section{
     border-top:1px solid black;

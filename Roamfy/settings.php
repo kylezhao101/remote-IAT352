@@ -101,26 +101,36 @@ function handleChangePasswordForm()
 
 <body>
     <?php include 'layouts/navbar.php'; ?>
-    <h3>Change Password</h3>
-    <form action="settings.php" method="post" class="auth-form">
-        <!-- Add CSRF token for security -->
-        <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars(session_id()); ?>">
+    <div class="settings-container">
+        <h3>Change Password</h3>
+        <form action="settings.php" method="post" class="auth-form">
+            <!-- Add CSRF token for security -->
+            <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars(session_id()); ?>">
 
-        <label for="current_password">Current Password:</label>
-        <input id="current-password-input" type="password" name="current_password" placeholder="Enter your current password" required>
-        <input type="checkbox" onclick="toggleShowPassword('current-password-input')">Show Password
+            <label for="current_password">Current Password:</label>
+            <input id="current-password-input" type="password" name="current_password" placeholder="Enter your current password" required>
+            <div class="checkbox-container">
+                <label class="checkbox-label" for="show-current-password">Show Password</label>
+                <input id="show-current-password" type="checkbox" onclick="toggleShowPassword('current-password-input')" class="checkbox-input">
+            </div>
 
-        <label for="new_password">New Password:</label>
-        <input id="new-password-input" type="password" name="new_password" placeholder="Enter your new password" required>
-        <input type="checkbox" onclick="toggleShowPassword('new-password-input')">Show Password
+            <label for="new_password">New Password:</label>
+            <input id="new-password-input" type="password" name="new_password" placeholder="Enter your new password" required>
+            <div class="checkbox-container">
+                <label class="checkbox-label" for="show-new-password">Show Password</label>
+                <input id="show-new-password" type="checkbox" onclick="toggleShowPassword('new-password-input')" class="checkbox-input">
+            </div>
 
-        <label for="confirm_password">Confirm New Password:</label>
-        <input id="confirm-password-input" type="password" name="confirm_password" placeholder="Confirm your new password" required>
-        <input type="checkbox" onclick="toggleShowPassword('confirm-password-input')">Show Password
+            <label for="confirm_password">Confirm New Password:</label>
+            <input id="confirm-password-input" type="password" name="confirm_password" placeholder="Confirm your new password" required>
+            <div class="checkbox-container">
+                <label class="checkbox-label" for="show-confirm-password">Show Password</label>
+                <input id="show-confirm-password" type="checkbox" onclick="toggleShowPassword('confirm-password-input')" class="checkbox-input">
+            </div>
 
-
-        <input type="submit" value="Change Password">
-    </form>
+            <input type="submit" value="Change Password">
+        </form>
+    </div>
     <script>
         function toggleShowPassword(inputId) {
             var x = document.getElementById(inputId);

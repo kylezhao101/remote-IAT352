@@ -96,56 +96,57 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
     <?php include 'layouts/navbar.php'; ?>
+    <!-- css naming convention to be changed after the project -->
+    <div class="auth-content">
+        <h3>Create an Itinerary</h3>
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data" class="itinerary-creation-form">
 
-    <h3>Create an Itinerary</h3>
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data" class="itinerary-creation-form">
+            <label for="trip_name">Trip Name:</label>
+            <input type="text" id="trip_name" name="trip_name" placeholder="Enter trip name" required />
 
-        <label for="trip_name">Trip Name:</label>
-        <input type="text" id="trip_name" name="trip_name" placeholder="Enter trip name" required />
-
-        <label for="location">Location:</label>
-        <?php include 'includes/location_autocomplete.php'; ?>
-        <input type="hidden" id="selected_location" name="selected_location" />
+            <label for="location">Location:</label>
+            <?php include 'includes/location_autocomplete.php'; ?>
+            <input type="hidden" id="selected_location" name="selected_location" />
 
 
-        <label for="trip_description">Trip Description:</label>
-        <textarea id="trip_description" name="trip_description" placeholder="Enter trip description" rows="5" accesskey="" required></textarea>
+            <label for="trip_description">Trip Description:</label>
+            <textarea id="trip_description" name="trip_description" placeholder="Enter trip description" rows="5" accesskey="" required></textarea>
 
-        <div class="form-group">
-            <div class="col">
-                <label for="status">Status:</label>
-                <select id="status" name="status" required>
-                    <option value="planning">Planning</option>
-                    <option value="in_progress">In Progress</option>
-                    <option value="complete">Complete</option>
-                </select>
+            <div class="form-group">
+                <div class="col">
+                    <label for="status">Status:</label>
+                    <select id="status" name="status" required>
+                        <option value="planning">Planning</option>
+                        <option value="in_progress">In Progress</option>
+                        <option value="complete">Complete</option>
+                    </select>
+                </div>
+
+                <div class="col">
+                    <label for="group_size">Group Size (optional):</label>
+                    <input type="number" id="group_size" name="group_size" placeholder="Enter group size" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col">
+                    <label for="start_date">Start Date (optional):</label>
+                    <input type="date" id="start_date" name="start_date" />
+                </div>
+
+                <div class="col">
+                    <label for="end_date">End Date (optional):</label>
+                    <input type="date" id="end_date" name="end_date" />
+                </div>
             </div>
 
-            <div class="col">
-                <label for="group_size">Group Size (optional):</label>
-                <input type="number" id="group_size" name="group_size" placeholder="Enter group size" />
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col">
-                <label for="start_date">Start Date (optional):</label>
-                <input type="date" id="start_date" name="start_date" />
-            </div>
+            <label for="main_img">Main Image Upload (optional):</label>
+            <input type="file" id="main_img" name="main_img" accept="image/*" onchange="previewImage(this)" />
+            <img id="imgPreview" style="max-width: 200px; max-height: 200px;" alt="Image Preview" />
+            <br><br>
+            <input type="submit" value="Initialize Itinerary">
 
-            <div class="col">
-                <label for="end_date">End Date (optional):</label>
-                <input type="date" id="end_date" name="end_date" />
-            </div>
-        </div>
-
-        <label for="main_img">Main Image Upload (optional):</label>
-        <input type="file" id="main_img" name="main_img" accept="image/*" onchange="previewImage(this)" />
-        <img id="imgPreview" style="max-width: 200px; max-height: 200px;" alt="Image Preview" />
-
-        <input type="submit" value="Initialize Itinerary">
-
-    </form>
-
+        </form>
+    </div>
     <script>
         const imgPreview = document.getElementById('imgPreview');
         const mainImgInput = document.getElementById('main_img');

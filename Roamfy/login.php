@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
     <?php include 'layouts/navbar.php'; ?>
-    <div id="content">
+    <div class="auth-content">
         <h3>Log in</h3>
 
         <!-- Login form -->
