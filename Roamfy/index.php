@@ -25,9 +25,10 @@ $db = connectToDatabase();
         <h1>Explore Itineraries</h1>
         <div class='yellow-rectangle'></div>
         <h5>Filter by</h5>
-        <div class="status-filter">
+        <form>
+            <div class="status-filter">
 
-            <form method="get" action="">
+
 
                 <input type="radio" id="all" name="status" value="all" <?php echo (!isset($_GET['status']) || $_GET['status'] == 'all') ? 'checked' : ''; ?>>
                 <label for="all">All</label>
@@ -41,22 +42,31 @@ $db = connectToDatabase();
                 <input type="radio" id="complete" name="status" value="complete" <?php echo (isset($_GET['status']) && $_GET['status'] == 'complete') ? 'checked' : ''; ?>>
                 <label for="complete">Complete</label>
 
+                <?php if (isset($_SESSION['username'])) : ?>
+                    <!-- Only render if the user is logged in -->
+                    <div>
+                        <input type="checkbox" id="myItineraries" name="myItineraries" <?php echo (isset($_GET['myItineraries']) && $_GET['myItineraries'] == 'on') ? 'checked' : ''; ?>>
+                        <label for="myItineraries">Only View My Itineraries</label>
+                    </div>
+                <?php endif; ?>
+
                 <input type="submit" value="Apply">
-            </form>
-        </div>
+            </div>
+        </form>
 
     </div>
     <div class="itinerary-cards-container">
         <?php
         // Get the status filter from the URL parameters
         $statusFilter = isset($_GET['status']) ? $_GET['status'] : null;
+        $myItineraries = isset($_GET['myItineraries']) && $_GET['myItineraries'] == 'on';
 
         // If 'All' is selected, set the $statusFilter to null
         if ($statusFilter === 'all') {
             $statusFilter = null;
         }
 
-        displayItineraryCards($db, $statusFilter);
+        displayItineraryCards($db, $statusFilter, $myItineraries);
         ?>
     </div>
 </body>

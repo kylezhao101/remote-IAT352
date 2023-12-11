@@ -6,7 +6,7 @@
             <a href="index.php"><h5>>Roamfy</h5></strong></a>
         </div>
         <ul>
-            <li><a href="index.php">Browse Itineraries</a></li>
+            <li><a href="index.php">Home</a></li>
             <?php
             if (isset($_SESSION['username'])) {
                 // User is logged in, show logout link

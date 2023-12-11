@@ -2,19 +2,47 @@
 
 // Function to display Itinerary cards ----------------------------------------
 // TODO: implement filtering and search
-function displayItineraryCards($db, $statusFilter = null)
+function displayItineraryCards($db, $statusFilter = null, $myItineraries = null)
 {
     // Prepare the SELECT query with a JOIN statement
     $sql = "SELECT i.*, m.username 
-            FROM itinerary i
-            LEFT JOIN member m ON i.member_id = m.member_id";
+     FROM itinerary i
+     LEFT JOIN member m ON i.member_id = m.member_id";
 
-    if ($statusFilter) {
-        // Add a WHERE clause to filter by status
-        $sql .= " WHERE i.status = '$statusFilter'";
+    if ($statusFilter || $myItineraries) {
+        // Add a WHERE clause to filter by status and/or member_id
+        $sql .= " WHERE";
+
+        if ($statusFilter) {
+            $sql .= " i.status = ?";
+        }
+
+        if ($myItineraries) {
+            $sql .= ($statusFilter ? " AND" : "") . " i.member_id = ?";
+        }
     }
 
-    $result = $db->query($sql);
+    // Prepare the SQL statement
+    $stmt = $db->prepare($sql);
+
+    // Bind parameters if applicable
+    if ($statusFilter && $myItineraries) {
+        // If both conditions are true, bind both parameters
+        $stmt->bind_param('si', $statusFilter, $_SESSION['member_id']);
+    } elseif ($statusFilter) {
+        // If only $statusFilter is true, bind only that parameter
+        $stmt->bind_param('s', $statusFilter);
+    } elseif ($myItineraries) {
+        // If only $myItineraries is true, bind only that parameter
+        $loggedInMemberId = isset($_SESSION['member_id']) ? $_SESSION['member_id'] : null;
+        $stmt->bind_param('i', $loggedInMemberId);
+    }
+
+    // Execute the query
+    $stmt->execute();
+
+    // Get the result set
+    $result = $stmt->get_result();
 
     if (!$result) {
         die("Error executing query: " . $db->error);
@@ -79,6 +107,7 @@ function displayItineraryCards($db, $statusFilter = null)
     }
 
     $result->free_result();
+    $stmt->close();
 }
 
 // Function to display Itinerary headers ----------------------------------------

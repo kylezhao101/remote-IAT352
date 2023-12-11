@@ -156,8 +156,12 @@ nav a {
 .search-container{
     padding-left: 5rem;
     padding-right: 5rem;
-    margin-top:10vh;
+    margin-top:5vh;
     margin-bottom:80px;
+}
+.status-filter{
+    display:flex;
+    align-items: center;
 }
 /* radio */
 .status-filter input[type="radio"] {
