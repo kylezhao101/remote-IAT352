@@ -111,7 +111,7 @@ if (isset($_GET['id'])) {
             <!-- Comments will be dynamically added here -->
         </div>
     </div>
-
+    <?php include 'layouts/footer.php'; ?>
 </body>
 
 </html>

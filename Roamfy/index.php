@@ -70,6 +70,7 @@ $db = connectToDatabase();
         displayItineraryCards($db, $statusFilter, $myItineraries);
         ?>
     </div>
+    <?php include 'layouts/footer.php'; ?>
 </body>
 
 </html>

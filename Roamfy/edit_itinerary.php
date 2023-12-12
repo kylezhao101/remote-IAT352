@@ -63,6 +63,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 function editItineraryDetailsHeader($itineraryId)
 {
+    if (empty($_SESSION['member_id'])) {
+        // Redirect
+        header("Location: login.php");
+        exit();
+    }
     // Prepare the SELECT query with a JOIN statement
     $sql = "SELECT i.*, m.username 
             FROM itinerary i
@@ -85,6 +90,12 @@ function editItineraryDetailsHeader($itineraryId)
     if ($result->num_rows > 0) {
         // Output data of the specified itinerary
         $row = $result->fetch_assoc();
+
+        if ($_SESSION['member_id'] != $row['member_id']) {
+            // Redirect to a page indicating unauthorized access
+            header("Location: index.php");
+            exit();
+        }
 ?>
 
         <h1><?= $row["trip_name"] ?></h1>

@@ -3,6 +3,13 @@ session_start();
 include 'includes/db_connection.php';
 include 'includes/https_redirect.php';
 enforceHttps();
+
+if (empty($_SESSION['member_id'])) {
+    // Redirect
+    header("Location: login.php");
+    exit();
+}
+
 function changePassword($db, $userId, $currentPassword, $newPassword, $confirmPassword)
 {
     // Check if new passwords match
