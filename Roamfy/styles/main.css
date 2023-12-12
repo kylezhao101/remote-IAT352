@@ -186,7 +186,8 @@ footer{
 .status-filter input[type="radio"]:checked + label{
     color:black;
 }
-.status-filter input[type="submit"]{
+.status-filter input[type="submit"],
+.like-button {
     background-color: #fdd142;
     border:none;
     color: #141414;

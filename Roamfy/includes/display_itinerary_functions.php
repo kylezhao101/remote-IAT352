@@ -1,41 +1,53 @@
 <?php
 
 // Function to display Itinerary cards ----------------------------------------
-// TODO: implement filtering and search
-function displayItineraryCards($db, $statusFilter = null, $myItineraries = null)
+function displayItineraryCards($db, $statusFilter = null, $myItineraries = null, $viewLiked = null)
 {
     // Prepare the SELECT query with a JOIN statement
     $sql = "SELECT i.*, m.username 
      FROM itinerary i
      LEFT JOIN member m ON i.member_id = m.member_id";
 
-    if ($statusFilter || $myItineraries) {
-        // Add a WHERE clause to filter by status and/or member_id
-        $sql .= " WHERE";
+    if ($statusFilter || $myItineraries || $viewLiked) {
+        // Add a WHERE clause to filter by status, member_id, and/or liked itineraries
+        $sql .= " WHERE ";
+
+        $conditions = [];
 
         if ($statusFilter) {
-            $sql .= " i.status = ?";
+            $conditions[] = "i.status = ?";
         }
 
         if ($myItineraries) {
-            $sql .= ($statusFilter ? " AND" : "") . " i.member_id = ?";
+            $conditions[] = "i.member_id = ?";
         }
+
+        if ($viewLiked) {
+            $conditions[] = "i.itinerary_id IN (SELECT itinerary_id FROM watchlist WHERE member_id = ?)";
+        }
+
+        $sql .= implode(" AND ", $conditions);
     }
 
     // Prepare the SQL statement
     $stmt = $db->prepare($sql);
 
     // Bind parameters if applicable
-    if ($statusFilter && $myItineraries) {
-        // If both conditions are true, bind both parameters
+    if ($statusFilter && $myItineraries && $viewLiked) {
+        $stmt->bind_param('ssi', $statusFilter, $_SESSION['member_id'], $_SESSION['member_id']);
+    } elseif ($statusFilter && $myItineraries) {
         $stmt->bind_param('si', $statusFilter, $_SESSION['member_id']);
+    } elseif ($statusFilter && $viewLiked) {
+        $stmt->bind_param('si', $statusFilter, $_SESSION['member_id']);
+    } elseif ($myItineraries && $viewLiked) {
+        $stmt->bind_param('ii', $_SESSION['member_id'], $_SESSION['member_id']);
     } elseif ($statusFilter) {
-        // If only $statusFilter is true, bind only that parameter
         $stmt->bind_param('s', $statusFilter);
     } elseif ($myItineraries) {
-        // If only $myItineraries is true, bind only that parameter
         $loggedInMemberId = isset($_SESSION['member_id']) ? $_SESSION['member_id'] : null;
         $stmt->bind_param('i', $loggedInMemberId);
+    } elseif ($viewLiked) {
+        $stmt->bind_param('i', $_SESSION['member_id']);
     }
 
     // Execute the query
@@ -75,7 +87,7 @@ function displayItineraryCards($db, $statusFilter = null, $myItineraries = null)
             echo "<p><strong>Created by:</strong> " . $row["username"] . "</p><br>";
 
             // Check if number_likes is not null and display it
-            if ($row["number_likes"] !== null) {
+            if ($row["number_likes"] !== null && $row["number_likes"] !== 0) {
                 echo "<p><strong>Number of Likes:</strong> " . $row["number_likes"] . "</p>";
             } else {
                 echo "<p>No likes yet, be the first to like!</p>";
@@ -127,6 +139,20 @@ function displayItineraryDetailsHeader($itineraryId)
     if ($result->num_rows > 0) {
         // Output data of the specified itinerary
         $row = $result->fetch_assoc();
+        // Check if the user is logged in
+        $isLoggedIn = isset($_SESSION['username']);
+
+        // Check if the current user has already liked this itinerary
+        $isLiked = false;
+        if ($isLoggedIn) {
+            $watchlistQuery = "SELECT * FROM watchlist WHERE member_id = ? AND itinerary_id = ?";
+            $watchlistStmt = $db->prepare($watchlistQuery);
+            $watchlistStmt->bind_param("ii", $_SESSION['member_id'], $itineraryId);
+            $watchlistStmt->execute();
+            $watchlistResult = $watchlistStmt->get_result();
+            $isLiked = $watchlistResult->num_rows > 0;
+            $watchlistStmt->close();
+        }
 ?>
 
         <h1><?= $row["trip_name"] ?></h1>
@@ -154,12 +180,16 @@ function displayItineraryDetailsHeader($itineraryId)
                     <p>No likes yet, be the first to like!</p>
                 <?php endif; ?>
 
-                <form id="likeForm" action='includes/add_to_watchlist.php' method='post'>
-                    <input type='hidden' name='itinerary_id' value='<?= $row["itinerary_id"] ?>'>
-                    <button type='submit'>
-                        <span>&#x2665;</span> Like
-                    </button>
-                </form>
+                <br>
+                <?php if ($isLoggedIn) : ?> <form id="likeForm" action='includes/add_to_watchlist.php' method='post'>
+                        <input type='hidden' name='itinerary_id' value='<?= $row["itinerary_id"] ?>'>
+                        <button type='submit' class="like-button">
+                            <span>&#x2665;</span> <?= $isLiked ? 'Unlike' : 'Like' ?>
+                        </button>
+                    </form>
+                <?php else : ?>
+                    <p>Sign in to like this itinerary</p>
+                <?php endif; ?>
 
                 <?php if ($row["forked_from"] !== null) : ?>
                     <p><strong>Forked From:</strong> <?= $row["forked_from"] ?></p>

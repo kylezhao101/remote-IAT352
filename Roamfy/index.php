@@ -47,7 +47,10 @@ $db = connectToDatabase();
                     <div class="checkbox-container">
                         <label class="checkbox-label" for="myItineraries">Only View My Itineraries</label>
                         <input class="checkbox-input" type="checkbox" id="myItineraries" name="myItineraries" <?php echo (isset($_GET['myItineraries']) && $_GET['myItineraries'] == 'on') ? 'checked' : ''; ?>>
-                        
+                       
+                        <label class="checkbox-label" for="viewLiked">View Liked</label>
+                        <input class="checkbox-input" type="checkbox" id="viewLiked" name="viewLiked" <?php echo (isset($_GET['viewLiked']) && $_GET['viewLiked'] == 'on') ? 'checked' : ''; ?>>
+
                     </div>
                 <?php endif; ?>
 
@@ -61,13 +64,14 @@ $db = connectToDatabase();
         // Get the status filter from the URL parameters
         $statusFilter = isset($_GET['status']) ? $_GET['status'] : null;
         $myItineraries = isset($_GET['myItineraries']) && $_GET['myItineraries'] == 'on';
+        $viewLiked = isset($_GET['viewLiked']) && $_GET['viewLiked'] == 'on';
 
         // If 'All' is selected, set the $statusFilter to null
         if ($statusFilter === 'all') {
             $statusFilter = null;
         }
 
-        displayItineraryCards($db, $statusFilter, $myItineraries);
+        displayItineraryCards($db, $statusFilter, $myItineraries, $viewLiked);
         ?>
     </div>
     <?php include 'layouts/footer.php'; ?>
