@@ -23,8 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $endDate = !empty($_POST["end_date"]) ? $_POST["end_date"] : null;
     $groupSize = $_POST["group_size"];
 
-    // Set a temporary member_id value (replace it with the actual member_id logic)
-    $memberId = 1;
+    $memberId = $_SESSION["member_id"];
 
     // Calculate duration if both start and end dates are filled
     $duration = null;

@@ -287,7 +287,7 @@ function displayEntries($itineraryId)
 
                         <!-- Edit Entry Form (under each entry) -->
                         <div class='edit-entry-form' id='editEntryForm<?= $row['itinerary_entry_id'] ?>' style='display: none;'>
-                            <form method='post' action='includes/process_entry_update.php' enctype='multipart/form-data' data-entry-id='<?= $row['itinerary_entry_id'] ?>'>
+                            <form id="entryEditForm" enctype='multipart/form-data' data-entry-id='<?= $row['itinerary_entry_id'] ?>'>
                                 <!-- Hidden field to pass itinerary entry ID -->
                                 <input type='hidden' name='itinerary_entry_id' value='<?= $row['itinerary_entry_id'] ?>'>
                                 <label for="move_to_day">Move to day (Does not re-order other entries):</label>
@@ -316,6 +316,8 @@ function displayEntries($itineraryId)
                                 <br>
                                 <label for='body_text'>Body Text:</label>
                                 <textarea name='body_text' rows='10' placeholder='What are your ideas?'><?= $row['body_text'] ?></textarea><br>
+
+                                <button class='update-entry-btn' data-entry-id='<?= $row['itinerary_entry_id'] ?>'>Update Entry</button>
                             </form>
                         </div>
                     <?php
@@ -353,7 +355,7 @@ function displayEntries($itineraryId)
                         console.log('clicked' + entryId)
                         $.ajax({
                             type: "POST",
-                            url: "includes/process_entry_delete.php", 
+                            url: "includes/process_entry_delete.php",
                             data: {
                                 entry_id: entryId
                             },
@@ -368,7 +370,7 @@ function displayEntries($itineraryId)
                     });
 
                     // Add AJAX submission for the form
-                    $("form").submit(function(event) {
+                    $("#entryEditForm").submit(function(event) {
                         // Prevent the default form submission
                         event.preventDefault();
 
