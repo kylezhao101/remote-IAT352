@@ -27,7 +27,7 @@ if (isset($_GET['id'])) {
         $(document).ready(function() {
 
             // Add AJAX submission for the form
-            $("form").submit(function(event) {
+            $("#commentForm").submit(function(event) {
                 // Prevent the default form submission
                 event.preventDefault();
 
@@ -91,7 +91,7 @@ if (isset($_GET['id'])) {
             if (isset($_SESSION['username'])) {
                 // User is logged in, display the comment form
             ?>
-                <form action='includes/process_comment.php' method='post' class='comment-form'>
+                <form id="commentForm" action='includes/process_comment.php' method='post' class='comment-form'>
                     <!-- Hidden field to pass itinerary ID -->
                     <input type='hidden' name='itineraryId' value='<?php echo $itineraryId; ?>'>
                     <textarea name='comment_text' rows='4' cols='50' placeholder='Write your comment...' required></textarea><br>

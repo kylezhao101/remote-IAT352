@@ -81,14 +81,6 @@ function displayItineraryCards($db, $statusFilter = null, $myItineraries = null)
                 echo "<p>No likes yet, be the first to like!</p>";
             }
 
-            // Like button
-            echo "<form action='add_to_watchlist.php' method='post'>";
-            echo "<input type='hidden' name='itinerary_id' value='" . $row["itinerary_id"] . "'>";
-            echo "<button type='submit'>";
-            echo "<span>&#x2665;</span> Like";
-            echo "</button>";
-            echo "</form>";
-
             // Check if forked_from is not null and display it
             if ($row["forked_from"] !== null) {
                 echo "<p><strong>Forked From:</strong> " . $row["forked_from"] . "</p>";
@@ -162,7 +154,7 @@ function displayItineraryDetailsHeader($itineraryId)
                     <p>No likes yet, be the first to like!</p>
                 <?php endif; ?>
 
-                <form action='add_to_watchlist.php' method='post'>
+                <form id="likeForm" action='includes/add_to_watchlist.php' method='post'>
                     <input type='hidden' name='itinerary_id' value='<?= $row["itinerary_id"] ?>'>
                     <button type='submit'>
                         <span>&#x2665;</span> Like
