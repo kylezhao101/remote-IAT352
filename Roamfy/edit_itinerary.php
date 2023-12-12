@@ -156,6 +156,50 @@ function editItineraryDetailsHeader($itineraryId)
             <button class='update-entry-btn' type='submit'>Save Changes</button>
         </form>
 
+        <button id="deleteHeaderBtn" class='delete-entry-btn'>Delete Itinerary</button>
+
+        <div id="deleteConfirmationModal" class="confirmation-modal" style="display: none;">
+            <p>Are you sure you want to delete this itinerary?</p>
+            <button id="confirmDeleteHeaderBtn" class="confirm-delete-btn">Yes, Delete</button>
+            <button id="cancelDeleteHeaderBtn" class="cancel-delete-btn">Cancel</button>
+        </div>
+
+
+        <script>
+            // JavaScript to handle delete button and confirmation modal
+            document.getElementById('deleteHeaderBtn').addEventListener('click', function() {
+                document.getElementById('deleteHeaderBtn').style.display = 'none';
+                document.getElementById('deleteConfirmationModal').style.display = 'block';
+            });
+
+            document.getElementById('cancelDeleteHeaderBtn').addEventListener('click', function() {
+                document.getElementById('deleteHeaderBtn').style.display = 'block';
+                document.getElementById('deleteConfirmationModal').style.display = 'none';
+            });
+
+            document.getElementById('confirmDeleteHeaderBtn').addEventListener('click', function() {
+                $.ajax({
+                    type: "POST",
+                    url: "includes/process_itinerary_delete.php",
+                    data: {
+                        itineraryId: <?php echo $itineraryId; ?>
+                    }, 
+
+                    success: function(response) {
+                        console.log("Itinerary deleted successfully");
+
+                        window.location.href = "index.php"; //redirect
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error deleting itinerary: " + error);
+                    },
+                });
+
+                document.getElementById('deleteHeaderBtn').style.display = 'none';
+                document.getElementById('deleteConfirmationModal').style.display = 'none';
+            });
+        </script>
+
 <?php
 
     } else {

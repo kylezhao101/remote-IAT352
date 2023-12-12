@@ -2,7 +2,7 @@
 session_start();
 include 'db_connection.php';
 
-$conn = connectToDatabase();
+$db = connectToDatabase();
 
 // Process form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $itineraryId = $_POST["itineraryId"];
 
     // Retrieve the maximum day_of_trip for the specified itinerary
-    $maxDayOfTripQuery = $conn->prepare("SELECT MAX(day_of_trip) AS max_day_of_trip FROM itinerary_entry WHERE itinerary_id = ?");
+    $maxDayOfTripQuery = $db->prepare("SELECT MAX(day_of_trip) AS max_day_of_trip FROM itinerary_entry WHERE itinerary_id = ?");
     $maxDayOfTripQuery->bind_param("i", $itineraryId);
     $maxDayOfTripQuery->execute();
     $maxDayOfTripResult = $maxDayOfTripQuery->get_result();
@@ -34,14 +34,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $bodyText = $_POST["body_text"];
 
     // Perform database insertion
-    $stmt = $conn->prepare("INSERT INTO itinerary_entry (itinerary_id, day_of_trip, accommodation, location, image, body_text) VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt = $db->prepare("INSERT INTO itinerary_entry (itinerary_id, day_of_trip, accommodation, location, image, body_text) VALUES (?, ?, ?, ?, ?, ?)");
 
     $stmt->bind_param("iissss", $itineraryId, $dayOfTrip, $accommodation, $location, $image, $bodyText);
     
     // Execute the statement
     if ($stmt->execute()) {
         // Update last_updated_date for the itinerary
-        $updateLastUpdatedQuery = $conn->prepare("UPDATE itinerary SET last_updated_date = NOW() WHERE itinerary_id = ?");
+        $updateLastUpdatedQuery = $db->prepare("UPDATE itinerary SET last_updated_date = NOW() WHERE itinerary_id = ?");
         $updateLastUpdatedQuery->bind_param("i", $itineraryId);
         $updateLastUpdatedQuery->execute();
 
@@ -54,5 +54,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 // Close the database connection
-$conn->close();
+$db->close();
 ?>

@@ -44,9 +44,10 @@ $db = connectToDatabase();
 
                 <?php if (isset($_SESSION['username'])) : ?>
                     <!-- Only render if the user is logged in -->
-                    <div>
-                        <input type="checkbox" id="myItineraries" name="myItineraries" <?php echo (isset($_GET['myItineraries']) && $_GET['myItineraries'] == 'on') ? 'checked' : ''; ?>>
-                        <label for="myItineraries">Only View My Itineraries</label>
+                    <div class="checkbox-container">
+                        <label class="checkbox-label" for="myItineraries">Only View My Itineraries</label>
+                        <input class="checkbox-input" type="checkbox" id="myItineraries" name="myItineraries" <?php echo (isset($_GET['myItineraries']) && $_GET['myItineraries'] == 'on') ? 'checked' : ''; ?>>
+                        
                     </div>
                 <?php endif; ?>
 

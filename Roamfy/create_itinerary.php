@@ -10,6 +10,7 @@ if (empty($_SESSION['username'])) {
     $_SESSION['callback_url'] = 'create_itinerary.php';
     // Redirect to login page
     header("Location: login.php");
+    exit();
 }
 
 //Process form submission
@@ -49,33 +50,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Execute the statement
     if ($stmt->execute()) {
         // Query the database to get the inserted row
-        $result = $conn->query("SELECT * FROM itinerary ORDER BY itinerary_id DESC LIMIT 1");
-
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-
-            echo "<h3>Submitted Data from Database:</h3>";
-            echo "<p><strong>Trip Name:</strong> " . $row["trip_name"] . "</p>";
-            echo "<p><strong>Location:</strong> " . $row["trip_location"] . "</p>";
-            echo "<p><strong>Trip Description:</strong> " . $row["trip_description"] . "</p>";
-            echo "<p><strong>Status:</strong> " . $row["status"] . "</p>";
-            echo "<p><strong>Start Date:</strong> " . $row["start_date"] . "</p>";
-            echo "<p><strong>End Date:</strong> " . $row["end_date"] . "</p>";
-            echo "<p><strong>Duration:</strong> " . $row["duration"] . " days</p>";
-            echo "<p><strong>Group Size:</strong> " . $row["group_size"] . "</p>";
-            if (!empty($row["main_img"])) {
-                echo "<p><strong>Main Image:</strong> <img src='data:image/jpg;charset=utf8;base64," . base64_encode($row["main_img"]) . "' alt='Main Image'></p>";
-            } else {
-                echo "<p><strong>Main Image:</strong> No image available</p>";
-            }
-
-            // Redirect to edit_itinerary.php with the new itinerary's ID
-            $itineraryId = $row["itinerary_id"];
-            header("Location: edit_itinerary.php?id=$itineraryId");
-            exit();
-        } else {
-            echo "Error fetching data from the database.";
-        }
+        $itineraryId = $conn->insert_id;
+        header("Location: edit_itinerary.php?id=$itineraryId");
+        exit();
     } else {
         echo "Error: " . $stmt->error;
     }
